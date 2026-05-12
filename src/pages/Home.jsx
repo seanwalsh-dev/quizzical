@@ -25,17 +25,25 @@ import { useState } from "react"
 
 export default function Home(){
 
-const [numOfQuestions, setNumOfQuestions] = useState(5)
+//  STATE
 
+const [numOfQuestions, setNumOfQuestions] = useState(5)
+const [category, setCategory] = useState('')
+
+//  onChange's
 
 function changeNumOfQuestions(event){
   setNumOfQuestions(event.target.value)
 }
 
+function handleCategoryChange(event){
+  setCategory(event.target.value)
+}
+
   function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&type=multiple`)
+    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&type=multiple`)
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => console.log('call: ', 'data: ', data))
   }
 
   return(
@@ -55,7 +63,7 @@ function changeNumOfQuestions(event){
             />
           </label>
           <label htmlFor='category'>Select a Category: 
-            <select name='category' id='category' >
+            <select name='category' id='category' onChange={handleCategoryChange}>
               <option value="">Any Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
