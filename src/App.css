@@ -1,0 +1,44 @@
+/*
+
+App.css → component-specific (App-level) styles
+
+Use this for styling only the App component layout:
+
+App container layout
+spacing
+alignment
+page-level structure
+
+*/
+
+/* SECTIONS */
+
+main {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* TYPOGRAPHY */
+
+h1 {
+  font-family: "Karla", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+/* BUTTONS */
+
+.start-btn {
+  width: 193px;
+  height: 52px;
+  border-radius: 15px;
+  background-color: #4D5B9E;
+  border: 0;
+
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+
+}

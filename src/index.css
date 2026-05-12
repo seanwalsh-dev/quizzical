@@ -1,0 +1,29 @@
+/*
+
+index.css → global styles
+
+Use this for anything that applies to the whole app:
+
+body styles
+font settings
+resets / normalize styles
+background color
+default text styling
+
+*/
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: #F5F7FB;
+  color: #293264;
+}
+
+.flex{
+  display: flex;
+}
