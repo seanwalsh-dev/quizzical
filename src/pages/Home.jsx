@@ -10,7 +10,9 @@ TODO:
 
   - API 
   
-    - link: https://opentdb.com/api.php?amount=5&type=multiple
+    - link: 
+        https://opentdb.com/api.php?amount=10
+        https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
     - Let user select: 
       - number of questions
       - category
@@ -19,28 +21,42 @@ TODO:
 
 */
 
-import { useEffect } from "react"
-
+import { useState } from "react"
 
 export default function Home(){
 
-  useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=5&type=multiple')
+const [numOfQuestions, setNumOfQuestions] = useState(5)
+
+
+function changeNumOfQuestions(event){
+  setNumOfQuestions(event.target.value)
+}
+
+  function handleStartQuiz(){
+    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&type=multiple`)
       .then(res => res.json())
       .then(data => console.log(data))
-  })
+  }
 
   return(
       <main className='flex'>
         <h1>Quizzical</h1>
 
         <form id='setup-quiz' className='flex'>
-          <label for='num-q'>Number of Questions: 
-            <input type='number' id='num-q' name='num-q' min='1' max='50' value='5'></input>
+          <label for='num-of-questions'>Number of Questions: 
+            <input 
+              type='number' 
+              id='num-of-questions' 
+              name='num-of-questions' 
+              min='1' 
+              max='50' 
+              value={numOfQuestions}
+              onChange={changeNumOfQuestions}
+            />
           </label>
           <label for='category'>Select a Category: 
             <select name='category' id='category' >
-              <option value="any">Any Category</option>
+              <option value="">Any Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
               <option value="11">Entertainment: Film</option>
@@ -85,7 +101,7 @@ export default function Home(){
 
         </form>
 
-        <button className='start-btn'>Start Quiz</button>
+        <button className='start-btn' onClick={() => handleStartQuiz()}>Start Quiz</button>
       </main>
     )
 }
