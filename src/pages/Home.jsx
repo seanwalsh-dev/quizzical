@@ -43,7 +43,7 @@ function changeNumOfQuestions(event){
         <h1>Quizzical</h1>
 
         <form id='setup-quiz' className='flex'>
-          <label for='num-of-questions'>Number of Questions: 
+          <label htmlFor='num-of-questions'>Number of Questions: 
             <input 
               type='number' 
               id='num-of-questions' 
@@ -54,7 +54,7 @@ function changeNumOfQuestions(event){
               onChange={changeNumOfQuestions}
             />
           </label>
-          <label for='category'>Select a Category: 
+          <label htmlFor='category'>Select a Category: 
             <select name='category' id='category' >
               <option value="">Any Category</option>
               <option value="9">General Knowledge</option>
@@ -83,7 +83,7 @@ function changeNumOfQuestions(event){
               <option value="32">Entertainment: Cartoon &amp; Animations</option>
             </select>
           </label>
-          <label for="difficulty">Select Difficulty: 
+          <label htmlFor="difficulty">Select Difficulty: 
             <select id="difficulty" name="difficulty">
               <option value="">Any Difficulty</option>
               <option value="easy">Easy</option>
@@ -91,7 +91,7 @@ function changeNumOfQuestions(event){
               <option value="hard">Hard</option>
             </select>
           </label>
-          <label for="type">Select Type:
+          <label htmlFor="type">Select Type:
             <select id="type" name="type">
               <option value="">Any Type</option>
               <option value="multiple">Multiple Choice</option>
