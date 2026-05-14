@@ -21,18 +21,10 @@ TODO:
 
 */
 
-// import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Home(props){
 
-//  STATE
-
-// const [formData, setFormData] = useState({
-//   number: 5,
-//   category: '',
-//   difficulty: '',
-//   type: ''
-// })
 
 //  onChange's
 
@@ -46,10 +38,20 @@ function handleFormDataChange(event){
 
 }
 
+const navigate = useNavigate()
+
   return(
       <main className='flex'>
         <h1>Quizzical</h1>
-        <form id='setup-quiz' className='flex'>
+        <form 
+          id='setup-quiz' 
+          className='flex' 
+          onSubmit={(e) =>{
+            e.preventDefault()
+            props.handleStartQuiz()
+            navigate('/quiz')
+          }} 
+        >
 
           <label htmlFor='num-of-questions'>Number of Questions: 
             <input 
@@ -122,15 +124,18 @@ function handleFormDataChange(event){
             </select>
           </label>
 
+          <button 
+          className='start-btn' 
+          type='submit'
+          // onClick={() =>{
+            
+          //   window.location.href='./quiz'
+          // }} 
+        >Start Quiz</button>
+
         </form>
 
-        <button 
-          className='start-btn' 
-          onClick={() =>{
-            props.handleStartQuiz()
-            window.location.href='./quiz'
-          }} 
-        >Start Quiz</button>
+        
       </main>
     )
 }
