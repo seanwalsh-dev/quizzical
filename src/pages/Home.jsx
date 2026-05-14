@@ -27,31 +27,32 @@ export default function Home(){
 
 //  STATE
 
-const [numOfQuestions, setNumOfQuestions] = useState(5)
-const [category, setCategory] = useState('')
-const [difficulty, setDifficulty] = useState('')
-const [type, setType] = useState('')
+// const [numOfQuestions, setNumOfQuestions] = useState(5)
+// const [category, setCategory] = useState('')
+// const [difficulty, setDifficulty] = useState('')
+// const [type, setType] = useState('')
+
+const [formData, setFormData] = useState({
+  number: 5,
+  category: '',
+  difficulty: '',
+  type: ''
+})
 
 //  onChange's
 
-function handleNumOfChange(event){
-  setNumOfQuestions(event.target.value)
-}
+function handleFormDataChange(event){
+  const { name, value } = event.target
 
-function handleCategoryChange(event){
-  setCategory(event.target.value)
-}
+  setFormData(prev =>({
+    ...prev,
+    [name]: value
+  }))
 
-function handleDifficultyChange(event){
-  setDifficulty(event.target.value)
-}
-
-function handleTypeChange(event){
-  setType(event.target.value)
 }
 
   function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`)
+    fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
       .then(data => console.log('call: ', 'data: ', data))
   }
@@ -65,11 +66,11 @@ function handleTypeChange(event){
             <input 
               type='number' 
               id='num-of-questions' 
-              name='num-of-questions' 
+              name='number' 
               min='1' 
               max='50' 
-              value={numOfQuestions}
-              onChange={handleNumOfChange}
+              value={formData.number}
+              onChange={handleFormDataChange}
             />
 
           </label>
@@ -77,7 +78,7 @@ function handleTypeChange(event){
             <select 
               name='category' 
               id='category' 
-              onChange={handleCategoryChange}
+              onChange={handleFormDataChange}
             >
               <option value="">Any Category</option>
               <option value="9">General Knowledge</option>
@@ -111,7 +112,7 @@ function handleTypeChange(event){
             <select 
               id="difficulty" 
               name="difficulty"
-              onChange={handleDifficultyChange}
+              onChange={handleFormDataChange}
             >
               <option value="">Any Difficulty</option>
               <option value="easy">Easy</option>
@@ -124,7 +125,7 @@ function handleTypeChange(event){
             <select 
               id="type" 
               name="type"
-              onChange={handleTypeChange}
+              onChange={handleFormDataChange}
             >
               <option value="">Any Type</option>
               <option value="multiple">Multiple Choice</option>
