@@ -21,30 +21,25 @@ TODO:
 
 */
 
-import { useState } from "react"
+// import { useState } from "react"
 
-export default function Home(){
+export default function Home(props){
 
 //  STATE
 
-// const [numOfQuestions, setNumOfQuestions] = useState(5)
-// const [category, setCategory] = useState('')
-// const [difficulty, setDifficulty] = useState('')
-// const [type, setType] = useState('')
-
-const [formData, setFormData] = useState({
-  number: 5,
-  category: '',
-  difficulty: '',
-  type: ''
-})
+// const [formData, setFormData] = useState({
+//   number: 5,
+//   category: '',
+//   difficulty: '',
+//   type: ''
+// })
 
 //  onChange's
 
 function handleFormDataChange(event){
   const { name, value } = event.target
 
-  setFormData(prev =>({
+  props.setFormData(prev =>({
     ...prev,
     [name]: value
   }))
@@ -52,7 +47,7 @@ function handleFormDataChange(event){
 }
 
   function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
+    fetch(`https://opentdb.com/api.php?amount=${props.formData.number}&category=${props.formData.category}&difficulty=${props.formData.difficulty}&type=${props.formData.type}`)
       .then(res => res.json())
       .then(data => console.log('call: ', 'data: ', data))
   }
@@ -69,7 +64,7 @@ function handleFormDataChange(event){
               name='number' 
               min='1' 
               max='50' 
-              value={formData.number}
+              value={props.formData.number}
               onChange={handleFormDataChange}
             />
 
