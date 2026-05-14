@@ -29,10 +29,12 @@ export default function Home(){
 
 const [numOfQuestions, setNumOfQuestions] = useState(5)
 const [category, setCategory] = useState('')
+const [difficulty, setDifficulty] = useState('')
+const [type, setType] = useState('')
 
 //  onChange's
 
-function changeNumOfQuestions(event){
+function handleNumOfChange(event){
   setNumOfQuestions(event.target.value)
 }
 
@@ -40,8 +42,16 @@ function handleCategoryChange(event){
   setCategory(event.target.value)
 }
 
+function handleDifficultyChange(event){
+  setDifficulty(event.target.value)
+}
+
+function handleTypeChange(event){
+  setType(event.target.value)
+}
+
   function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&type=multiple`)
+    fetch(`https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`)
       .then(res => res.json())
       .then(data => console.log('call: ', 'data: ', data))
   }
@@ -49,8 +59,8 @@ function handleCategoryChange(event){
   return(
       <main className='flex'>
         <h1>Quizzical</h1>
-
         <form id='setup-quiz' className='flex'>
+
           <label htmlFor='num-of-questions'>Number of Questions: 
             <input 
               type='number' 
@@ -59,11 +69,16 @@ function handleCategoryChange(event){
               min='1' 
               max='50' 
               value={numOfQuestions}
-              onChange={changeNumOfQuestions}
+              onChange={handleNumOfChange}
             />
+
           </label>
           <label htmlFor='category'>Select a Category: 
-            <select name='category' id='category' onChange={handleCategoryChange}>
+            <select 
+              name='category' 
+              id='category' 
+              onChange={handleCategoryChange}
+            >
               <option value="">Any Category</option>
               <option value="9">General Knowledge</option>
               <option value="10">Entertainment: Books</option>
@@ -91,16 +106,26 @@ function handleCategoryChange(event){
               <option value="32">Entertainment: Cartoon &amp; Animations</option>
             </select>
           </label>
+
           <label htmlFor="difficulty">Select Difficulty: 
-            <select id="difficulty" name="difficulty">
+            <select 
+              id="difficulty" 
+              name="difficulty"
+              onChange={handleDifficultyChange}
+            >
               <option value="">Any Difficulty</option>
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </select>
           </label>
+
           <label htmlFor="type">Select Type:
-            <select id="type" name="type">
+            <select 
+              id="type" 
+              name="type"
+              onChange={handleTypeChange}
+            >
               <option value="">Any Type</option>
               <option value="multiple">Multiple Choice</option>
               <option value="boolean">True / False</option>
