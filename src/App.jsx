@@ -7,6 +7,8 @@ import Quiz from './pages/Quiz'
 
 function App() {
 
+//  STATE
+
   const [formData, setFormData] = useState({
     number: 5,
     category: '',
@@ -14,18 +16,18 @@ function App() {
     type: ''
 })
 
+const [apiData, setApiData] = useState(null)
+
+//  USING FORMDATA STATE FOR THE API
+
 function handleStartQuiz(){
     fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
       .then(data =>{
-        console.log('call: ', 'data: ', data)
-        handleData(data)
+        console.log('data from handleStartQuiz(): ', data)
+        setApiData(data)
       })
   }
-
-function handleData(data){
-  return data
-}
 
   return (
 
@@ -39,7 +41,7 @@ function handleData(data){
       />
       <Route path="/quiz" element=
         {<Quiz 
-          handleData={handleData}
+          apiData={apiData}
         />} />
     </Routes>
   )
