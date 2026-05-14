@@ -14,6 +14,12 @@ function App() {
     type: ''
 })
 
+function handleStartQuiz(){
+    fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
+      .then(res => res.json())
+      .then(data => console.log('call: ', 'data: ', data))
+  }
+
   return (
 
     <Routes>
@@ -21,6 +27,7 @@ function App() {
         {<Home 
           formData={formData}
           setFormData={setFormData}
+          handleStartQuiz={handleStartQuiz}
         />} 
       />
       <Route path="/quiz" element={<Quiz />} />

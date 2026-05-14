@@ -46,12 +46,6 @@ function handleFormDataChange(event){
 
 }
 
-  function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${props.formData.number}&category=${props.formData.category}&difficulty=${props.formData.difficulty}&type=${props.formData.type}`)
-      .then(res => res.json())
-      .then(data => console.log('call: ', 'data: ', data))
-  }
-
   return(
       <main className='flex'>
         <h1>Quizzical</h1>
@@ -130,7 +124,7 @@ function handleFormDataChange(event){
 
         </form>
 
-        <button className='start-btn' onClick={() => handleStartQuiz()}>Start Quiz</button>
+        <button className='start-btn' onClick={() => props.handleStartQuiz()}>Start Quiz</button>
       </main>
     )
 }
