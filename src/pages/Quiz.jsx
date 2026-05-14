@@ -1,3 +1,6 @@
-export default function Quiz() {
-    return <h1>Quiz Page</h1>
-  }
+export default function Quiz(props) {
+    
+  console.log('handleData: ', props.handleData())
+  
+  return <h1>Quiz Page</h1>
+}

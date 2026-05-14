@@ -17,8 +17,15 @@ function App() {
 function handleStartQuiz(){
     fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
-      .then(data => console.log('call: ', 'data: ', data))
+      .then(data =>{
+        console.log('call: ', 'data: ', data)
+        handleData(data)
+      })
   }
+
+function handleData(data){
+  return data
+}
 
   return (
 
@@ -30,7 +37,10 @@ function handleStartQuiz(){
           handleStartQuiz={handleStartQuiz}
         />} 
       />
-      <Route path="/quiz" element={<Quiz />} />
+      <Route path="/quiz" element=
+        {<Quiz 
+          handleData={handleData}
+        />} />
     </Routes>
   )
 }

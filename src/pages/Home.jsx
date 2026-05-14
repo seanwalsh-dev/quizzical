@@ -124,7 +124,13 @@ function handleFormDataChange(event){
 
         </form>
 
-        <button className='start-btn' onClick={() => props.handleStartQuiz()}>Start Quiz</button>
+        <button 
+          className='start-btn' 
+          onClick={() =>{
+            props.handleStartQuiz()
+            window.location.href='./quiz'
+          }} 
+        >Start Quiz</button>
       </main>
     )
 }
