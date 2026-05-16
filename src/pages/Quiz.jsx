@@ -18,6 +18,8 @@ export default function Quiz(props) {
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
     
     const answersArr = item.incorrect_answers
+    answersArr.includes(item.correct_answer) ? 
+    null :
     answersArr.push(item.correct_answer)
 
 
@@ -27,21 +29,39 @@ export default function Quiz(props) {
 //  IF BOOLEAN
 
     if(item.type === 'boolean'){
-      console.log('boolean question: ', item )
-//  WORKING HERE ********************************************************************
-      return(
-      <article key={index}>
-        <h2>{index + 1}. {item.question}</h2>
-        {/* {displayShuffledAns} */}
-        <p>True or false</p>
-      </article>
-    ) 
-//  WORKING HERE ********************************************************************
+
+//  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
+      
+      const booleanOptions = item.incorrect_answers[0] === 'True' ?
+        item.incorrect_answers :  //  If the first incorrect answer is 'True', then the options are in the correct order.
+        item.incorrect_answers.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
+
+//  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
+
+      const displayBooleanOptions = booleanOptions.map((option, index) => ( 
+        <label key={index}>
+          <input 
+                type='radio'
+                // id={index}
+                name={questionIndex}
+                value={option}
+              / >
+            {option}
+          </label>
+    ))
+
+//  DISPLAYING THE ITEMS OF THE QUIZ
+
+      return( 
+        <article key={index}>
+          <h2>{index + 1}. {item.question}</h2>
+          {displayBooleanOptions}
+        </article>
+      )
 
 //  IF MULTIPLE CHOICE
 
     } else {
-      console.log('multiple choice question: ', item)
 
       //  FISHER-YATES SHUFFLE
 
