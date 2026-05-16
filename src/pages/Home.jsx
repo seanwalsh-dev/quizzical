@@ -1,26 +1,3 @@
-/*
-
-TODO:
-
-  - onClick
-
-    + call API
-    - have API populate the quiz page
-    - route to the quiz page
-
-  - API 
-  
-    - link: 
-        https://opentdb.com/api.php?amount=10
-        https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
-    - Let user select: 
-      - number of questions
-      - category
-      - difficulty
-      - type
-
-*/
-
 import { useNavigate } from "react-router-dom"
 
 export default function Home(props){

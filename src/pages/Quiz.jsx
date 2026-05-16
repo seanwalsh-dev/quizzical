@@ -1,27 +1,49 @@
 export default function Quiz(props) {
     
-  console.log('API Data: ', props.apiData)
+  // console.log('API Data: ', props.apiData)
   
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
-  const quesAndAns = props.apiData?.results //  Only try to access results if data exsists.
-  if(!Array.isArray(quesAndAns)){ //  If quesAndAns is not an array, return.
+  const quizItems = props.apiData?.results //  Only try to access results if data exsists.
+  if(!Array.isArray(quizItems)){ //  If quizItems is not an array, return.
     return
   }
 
-// MAPPING THROUGH quesAndAns
+// MAPPING THROUGH quizItems
 
-  const quiz = quesAndAns.map((qna, index) =>{
+  const quiz = quizItems.map((item, index) =>{
 
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
     
-    const answersArr = qna.incorrect_answers
-    answersArr.push(qna.correct_answer)
-    console.log('answers 1: ', answersArr)
+    const answersArr = item.incorrect_answers
+    answersArr.push(item.correct_answer)
 
-//  FISHER-YATES SHUFFLE
+
+
+//  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
+
+//  IF BOOLEAN
+
+    if(item.type === 'boolean'){
+      console.log('boolean question: ', item )
+//  WORKING HERE ********************************************************************
+      return(
+      <article key={index}>
+        <h2>{index + 1}. {item.question}</h2>
+        {/* {displayShuffledAns} */}
+        <p>True or false</p>
+      </article>
+    ) 
+//  WORKING HERE ********************************************************************
+
+//  IF MULTIPLE CHOICE
+
+    } else {
+      console.log('multiple choice question: ', item)
+
+      //  FISHER-YATES SHUFFLE
 
     function shuffleAnsArr(array){
       const arr = [...array]
@@ -31,9 +53,8 @@ export default function Quiz(props) {
       }
       return arr
     }
-    
-    
-    console.log('shuffled answers: ', shuffleAnsArr(answersArr))
+
+    // console.log('shuffled answers: ', shuffleAnsArr(answersArr))
 
     const shuffledAnswers = shuffleAnsArr(answersArr)
 
@@ -55,10 +76,14 @@ export default function Quiz(props) {
 
     return(
       <article key={index}>
-        <h2>{index + 1}. {qna.question}</h2>
+        <h2>{index + 1}. {item.question}</h2>
         {displayShuffledAns}
       </article>
     ) 
+      
+    } //  END OF IF STATEMENT
+
+
   })
   
   return quiz
