@@ -108,5 +108,10 @@ export default function Quiz(props) {
   
   
 
-  return quiz
+  return(
+    <form /*onSubmit={handleCheckAnswers}*/>
+      {quiz}
+      <button type="submit" className='start-btn'>Check Answers</button>
+    </form>
+  ) 
 }
