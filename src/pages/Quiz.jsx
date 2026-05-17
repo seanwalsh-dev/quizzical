@@ -16,13 +16,13 @@ export default function Quiz(props) {
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
+    console.log('item: ', item)
+    const answersArr = [...item.incorrect_answers]
+    answersArr.includes(item.correct_answer) ? 
+      null :
+      answersArr.push(item.correct_answer)
 
-    const hasCorrectAnswer = item.incorrect_answers.includes(item.correct_answer)
-
-    const answersArr = 
-      hasCorrectAnswer ?
-        [...item.incorrect_answers] : 
-        [...item.incorrect_answers, item.correct_answer]
+      console.log('answers array: ', answersArr)
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
@@ -32,9 +32,9 @@ export default function Quiz(props) {
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
       
-      const booleanOptions = item.incorrect_answers[0] === 'True' ?
-        item.incorrect_answers :  //  If the first incorrect answer is 'True', then the options are in the correct order.
-        item.incorrect_answers.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
+      const booleanOptions = answersArr[0] === 'True' ?
+        answersArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
+        answersArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
 
 //  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
 
