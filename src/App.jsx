@@ -27,8 +27,6 @@ function handleStartQuiz(){
     fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
       .then(data =>{
-//  WORKING HERE ********************************************************************
-        // setApiData(data)
 
         const decodedApiData = {
           ...data,
@@ -44,8 +42,6 @@ function handleStartQuiz(){
 
       })
   }
-
-  //  WORKING HERE ********************************************************************
 
   return (
 

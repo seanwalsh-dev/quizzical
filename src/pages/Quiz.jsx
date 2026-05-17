@@ -16,13 +16,13 @@ export default function Quiz(props) {
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-    
-    const answersArr = item.incorrect_answers
-    answersArr.includes(item.correct_answer) ? 
-      null :
-      answersArr.push(item.correct_answer)
 
+    const hasCorrectAnswer = item.incorrect_answers.includes(item.correct_answer)
 
+    const answersArr = 
+      hasCorrectAnswer ?
+        [...item.incorrect_answers] : 
+        [...item.incorrect_answers, item.correct_answer]
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
