@@ -5,6 +5,9 @@ import './index.css'
 import Home from './pages/Home'
 import Quiz from './pages/Quiz'
 
+import he from 'he' //  Importing the 'he' library to decode HTML entities in the quiz questions and answers.
+// import {decode} from 'html-entities';
+
 function App() {
 
 //  STATE
@@ -24,9 +27,25 @@ function handleStartQuiz(){
     fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
       .then(data =>{
-        setApiData(data)
+//  WORKING HERE ********************************************************************
+        // setApiData(data)
+
+        const decodedApiData = {
+          ...data,
+          results: data.results.map(item => ({
+          ...item,
+          question: he.decode(item.question),
+          correct_answer: he.decode(item.correct_answer),
+          incorrect_answers: item.incorrect_answers.map(answer => he.decode(answer))
+          }))
+        }
+
+        setApiData(decodedApiData)
+
       })
   }
+
+  //  WORKING HERE ********************************************************************
 
   return (
 

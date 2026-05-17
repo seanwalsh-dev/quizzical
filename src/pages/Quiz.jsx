@@ -19,8 +19,8 @@ export default function Quiz(props) {
     
     const answersArr = item.incorrect_answers
     answersArr.includes(item.correct_answer) ? 
-    null :
-    answersArr.push(item.correct_answer)
+      null :
+      answersArr.push(item.correct_answer)
 
 
 
@@ -106,5 +106,7 @@ export default function Quiz(props) {
 
   })
   
+  
+
   return quiz
 }
