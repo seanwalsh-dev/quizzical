@@ -16,13 +16,20 @@ export default function Quiz(props) {
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-    console.log('item: ', item)
-    const answersArr = [...item.incorrect_answers]
-    answersArr.includes(item.correct_answer) ? 
-      null :
-      answersArr.push(item.correct_answer)
+    // console.log('item: ', item)
+    // const answersArr = [...item.incorrect_answers]
+    // answersArr.includes(item.correct_answer) ? 
+    //   null :
+    //   answersArr.push(item.correct_answer)
 
-      console.log('answers array: ', answersArr)
+    //   console.log('answers array: ', answersArr)
+
+//  SECOND ATTMEMPT TO SEE IF SPAN WORKS
+
+      const answersArr = 
+      item.incorrect_answers.includes(item.correct_answer) ?
+      [...item.correct_answer] : 
+      [...item.incorrect_answers, item.correct_answer]
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
