@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 export default function Quiz(props) {
     
   // console.log('API Data: ', props.apiData)
@@ -28,8 +30,8 @@ export default function Quiz(props) {
 
       const answersArr = 
       item.incorrect_answers.includes(item.correct_answer) ?
-      [...item.correct_answer] : 
-      [...item.incorrect_answers, item.correct_answer]
+        [...item.correct_answer] : 
+        [...item.incorrect_answers, item.correct_answer]
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
@@ -46,12 +48,13 @@ export default function Quiz(props) {
 //  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
 
       const displayBooleanOptions = booleanOptions.map((option, index) => ( 
-        <label key={index}>
+        <label key={index} className="choice-label">
           <input 
                 type='radio'
                 // id={index}
                 name={questionIndex}
                 value={option}
+                className="choice-input"
               / >
             {option}
           </label>
@@ -59,11 +62,16 @@ export default function Quiz(props) {
 
 //  DISPLAYING THE ITEMS OF THE QUIZ
 
-      return( 
-        <article key={index}>
-          <h2>{index + 1}. {item.question}</h2>
-          {displayBooleanOptions}
-        </article>
+      return(
+        <Fragment key={index}>
+          <article>
+            <h2>{index + 1}. {item.question}</h2>
+            <div className='choices-container'>
+              {displayBooleanOptions}
+            </div>
+          </article>
+          <hr />
+        </Fragment>
       )
 
 //  IF MULTIPLE CHOICE
@@ -88,12 +96,13 @@ export default function Quiz(props) {
 //  MAP THROUGH SHUFFLED ANSWERS
 
     const displayShuffledAns = shuffledAnswers.map((answer, index) => (
-      <label key={index}>
+      <label key={index} className="choice-label">
         <input 
               type='radio'
               // id={index}
               name={questionIndex}
               value={answer}
+              className="choice-input"
             / >
           {answer}
         </label>
@@ -102,10 +111,16 @@ export default function Quiz(props) {
 //  DISPLAYING THE QUIZ
 
     return(
-      <article key={index}>
-        <h2>{index + 1}. {item.question}</h2>
-        {displayShuffledAns}
-      </article>
+      <Fragment  key={index}>
+        <article>
+          <h2>{index + 1}. {item.question}</h2>
+          <div className='choices-container'>
+            {displayShuffledAns}
+          </div>
+        </article>
+        <hr />
+      </Fragment >
+      
     ) 
       
     } //  END OF IF STATEMENT
@@ -116,7 +131,7 @@ export default function Quiz(props) {
   
 
   return(
-    <form /*onSubmit={handleCheckAnswers}*/>
+    <form className='quiz-form' /*onSubmit={handleCheckAnswers}*/>
       {quiz}
       <button type="submit" className='start-btn'>Check Answers</button>
     </form>
