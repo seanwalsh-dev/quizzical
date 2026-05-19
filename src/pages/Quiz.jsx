@@ -1,6 +1,10 @@
 import { Fragment } from 'react'
 
 export default function Quiz(props) {
+
+//  STATE
+
+  // const [responses, setResponses] = useState([])  
     
   // console.log('API Data: ', props.apiData)
   
@@ -103,8 +107,30 @@ export default function Quiz(props) {
       )
   })  //  END OF MAP
 
+// HANDLING CHECK ANSWERS
+
+  function handleCheckAnswers(event){
+    event.preventDefault()
+    console.log('Checking Answers...')
+
+    console.log('Quiz Items: ', quizItems)
+
+    const correctAnswers = quizItems.map((item) => item.correct_answer)
+    console.log('Correct Answers: ', correctAnswers)
+
+/*
+
+GETTING THE USER'S SELECTED ANSWERS
+
+  -  We need to know the users answers and the correct answers
+    -  Should we put the user answers in state or through isChecked?
+    -  Correct data can be derived through apiData state
+
+*/
+  }
+
   return(
-    <form className='quiz-form' /*onSubmit={handleCheckAnswers}*/>
+    <form className='quiz-form' onSubmit={handleCheckAnswers}>
       {quiz}
       <button type="submit" className='start-btn'>Check Answers</button>
     </form>
