@@ -8,6 +8,8 @@ import Quiz from './pages/Quiz'
 import he from 'he' //  Importing the 'he' library to decode HTML entities in the quiz questions and answers.
 // import {decode} from 'html-entities';
 
+
+
 function App() {
 
 //  STATE
@@ -20,6 +22,8 @@ function App() {
 })
 
 const [apiData, setApiData] = useState(null)
+
+console.log('API Data: ', apiData)
 
 //  USING FORMDATA STATE FOR THE API
 

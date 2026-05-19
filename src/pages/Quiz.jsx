@@ -8,7 +8,7 @@ export default function Quiz(props) {
 
   const quizItems = props.apiData?.results //  Only try to access results if data exsists.
   if(!Array.isArray(quizItems)){ //  If quizItems is not an array, return.
-    return
+    return <h1>Loading Quiz...</h1>
   }
 
 // MAPPING THROUGH quizItems
@@ -28,26 +28,27 @@ export default function Quiz(props) {
 
 //  SECOND ATTMEMPT TO SEE IF SPAN WORKS
 
-      const answersArr = 
-      item.incorrect_answers.includes(item.correct_answer) ?
-        [...item.correct_answer] : 
-        [...item.incorrect_answers, item.correct_answer]
+    const answersArr = 
+    item.incorrect_answers.includes(item.correct_answer) ?
+      [...item.correct_answer] : 
+      [...item.incorrect_answers, item.correct_answer]
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
-
+    let displayOptions
 //  IF BOOLEAN
 
     if(item.type === 'boolean'){
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
-      
+
+//  BEGIN WORKING ****************************************************************
       const booleanOptions = answersArr[0] === 'True' ?
         answersArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
         answersArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
 
 //  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
 
-      const displayBooleanOptions = booleanOptions.map((option, index) => ( 
+      displayOptions = booleanOptions.map((option, index) => ( 
         <label key={index} className="choice-label">
           <input 
                 type='radio'
@@ -60,74 +61,70 @@ export default function Quiz(props) {
           </label>
     ))
 
-//  DISPLAYING THE ITEMS OF THE QUIZ
-
-      return(
-        <Fragment key={index}>
-          <article>
-            <h2>{index + 1}. {item.question}</h2>
-            <div className='choices-container'>
-              {displayBooleanOptions}
-            </div>
-          </article>
-          <hr />
-        </Fragment>
-      )
+//  END WORKING ****************************************************************
 
 //  IF MULTIPLE CHOICE
 
     } else {
 
-      //  FISHER-YATES SHUFFLE
+//  FISHER-YATES SHUFFLE
 
-    function shuffleAnsArr(array){
-      const arr = [...array]
-      for (let i = arr.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1))
-        ;[arr[i], arr[j]] = [arr[j], arr[i]]
+      function shuffleAnsArr(array){
+        const arr = [...array]
+        for (let i = arr.length - 1; i > 0; i--){
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[arr[i], arr[j]] = [arr[j], arr[i]]
+        }
+        return arr
       }
-      return arr
-    }
 
-    // console.log('shuffled answers: ', shuffleAnsArr(answersArr))
+  // console.log('shuffled answers: ', shuffleAnsArr(answersArr))
 
-    const shuffledAnswers = shuffleAnsArr(answersArr)
+//  BEGIN WORKING ****************************************************************
+
+      const shuffledAnswers = shuffleAnsArr(answersArr)
 
 //  MAP THROUGH SHUFFLED ANSWERS
 
-    const displayShuffledAns = shuffledAnswers.map((answer, index) => (
-      <label key={index} className="choice-label">
-        <input 
-              type='radio'
-              // id={index}
-              name={questionIndex}
-              value={answer}
-              className="choice-input"
-            / >
-          {answer}
-        </label>
-    ))
-      
+      displayOptions = shuffledAnswers.map((answer, index) => (
+        <label key={index} className="choice-label">
+          <input 
+                type='radio'
+                // id={index}
+                name={questionIndex}
+                value={answer}
+                className="choice-input"
+              / >
+            {answer}
+          </label>
+      ))
+
+//  END WORKING ****************************************************************
+
+    }  //  END OF IF STATEMENT
+
+    //  BEGIN WORKING ****************************************************************
+
 //  DISPLAYING THE QUIZ
+      return(
+        <Fragment  key={index}>
+          <article>
+            <h2>{index + 1}. {item.question}</h2>
+            <div className='choices-container'>
+              {displayOptions}
+            </div>
+          </article>
+          <hr />
+        </Fragment >
+        
+      )
 
-    return(
-      <Fragment  key={index}>
-        <article>
-          <h2>{index + 1}. {item.question}</h2>
-          <div className='choices-container'>
-            {displayShuffledAns}
-          </div>
-        </article>
-        <hr />
-      </Fragment >
-      
-    ) 
-      
-    } //  END OF IF STATEMENT
+  })  //  END OF MAP
 
 
-  })
-  
+
+
+//  END WORKING ****************************************************************
   
 
   return(
