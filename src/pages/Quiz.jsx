@@ -18,17 +18,8 @@ export default function Quiz(props) {
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-    // console.log('item: ', item)
-    // const answersArr = [...item.incorrect_answers]
-    // answersArr.includes(item.correct_answer) ? 
-    //   null :
-    //   answersArr.push(item.correct_answer)
 
-    //   console.log('answers array: ', answersArr)
-
-//  SECOND ATTMEMPT TO SEE IF SPAN WORKS
-
-    const answersArr = 
+    const optionsArr = 
     item.incorrect_answers.includes(item.correct_answer) ?
       [...item.correct_answer] : 
       [...item.incorrect_answers, item.correct_answer]
@@ -41,10 +32,9 @@ export default function Quiz(props) {
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
 
-//  BEGIN WORKING ****************************************************************
-      const booleanOptions = answersArr[0] === 'True' ?
-        answersArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
-        answersArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
+      const booleanOptions = optionsArr[0] === 'True' ?
+        optionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
+        optionsArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
 
 //  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
 
@@ -61,15 +51,13 @@ export default function Quiz(props) {
           </label>
     ))
 
-//  END WORKING ****************************************************************
-
 //  IF MULTIPLE CHOICE
 
     } else {
 
 //  FISHER-YATES SHUFFLE
 
-      function shuffleAnsArr(array){
+      function shuffleOptionsArr(array){
         const arr = [...array]
         for (let i = arr.length - 1; i > 0; i--){
           const j = Math.floor(Math.random() * (i + 1))
@@ -78,32 +66,23 @@ export default function Quiz(props) {
         return arr
       }
 
-  // console.log('shuffled answers: ', shuffleAnsArr(answersArr))
-
-//  BEGIN WORKING ****************************************************************
-
-      const shuffledAnswers = shuffleAnsArr(answersArr)
+      const shuffledOptions = shuffleOptionsArr(optionsArr)
 
 //  MAP THROUGH SHUFFLED ANSWERS
 
-      displayOptions = shuffledAnswers.map((answer, index) => (
+      displayOptions = shuffledOptions.map((option, index) => (
         <label key={index} className="choice-label">
           <input 
                 type='radio'
                 // id={index}
                 name={questionIndex}
-                value={answer}
+                value={option}
                 className="choice-input"
               / >
-            {answer}
+            {option}
           </label>
       ))
-
-//  END WORKING ****************************************************************
-
     }  //  END OF IF STATEMENT
-
-    //  BEGIN WORKING ****************************************************************
 
 //  DISPLAYING THE QUIZ
       return(
@@ -118,14 +97,7 @@ export default function Quiz(props) {
         </Fragment >
         
       )
-
   })  //  END OF MAP
-
-
-
-
-//  END WORKING ****************************************************************
-  
 
   return(
     <form className='quiz-form' /*onSubmit={handleCheckAnswers}*/>
