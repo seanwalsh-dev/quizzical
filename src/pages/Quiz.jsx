@@ -113,24 +113,35 @@ let itemOptions
 
 // HANDLING CHECK ANSWERS
 
+console.log('quizItems', quizItems)
+
   function handleCheckAnswers(event){
-    event.preventDefault()
-    console.log('Checking Answers...')
-
-    console.log('Quiz Items: ', quizItems)
-
-    const correctAnswers = quizItems.map((item) => item.correct_answer)
-    console.log('Correct Answers: ', correctAnswers)
 
 /*
 
-GETTING THE USER'S SELECTED ANSWERS
-
-  -  We need to know the users answers and the correct answers
-    -  Should we put the user answers in state or through isChecked?
-    -  Correct data can be derived through apiData state
+  +  We need to know the users answers and the correct answers
+  -  compare the responses with the correct answers.
+    -  for of loop?
 
 */
+
+    event.preventDefault()
+    console.log('Checking Answers...')
+
+    const correctAnswers = quizItems.map((item, index) => ({itemIndex: index, answer: item.correct_answer}))
+    console.log('Correct Answers: ', correctAnswers)
+
+    
+      if(responses.length === correctAnswers.length){
+        for (let i = 0; i < correctAnswers.length; i++){
+          responses[i].response === correctAnswers[i].answer ?
+            console.log(`Number ${correctAnswers[i].itemIndex + 1} is Correct!`) : 
+            console.log(`Number ${correctAnswers[i].itemIndex + 1} is Incorrect!`)
+        }
+      } else {
+        console.log('You have not answered all of the questions')
+      }
+
   }
 
   return(
