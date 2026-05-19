@@ -1,10 +1,11 @@
 import { Fragment } from 'react'
+import { useState } from 'react'
 
 export default function Quiz(props) {
 
 //  STATE
 
-  // const [responses, setResponses] = useState([])  
+  const [responses, setResponses] = useState([])  
     
   // console.log('API Data: ', props.apiData)
   
@@ -30,11 +31,7 @@ export default function Quiz(props) {
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
-//  WORKING HERE ****************************************************************
-
 let itemOptions
-
-//  WORKING HERE ****************************************************************
 
 //  IF BOOLEAN
 
@@ -66,35 +63,55 @@ let itemOptions
 
 //  DISPLAYING THE QUIZ
 
-      const displayOptions = itemOptions.map((option, index) => ( 
-          <label key={index} className="choice-label">
-            <input 
-                  type='radio'
-                  // id={index}
-                  name={questionIndex}
-                  value={option}
-                  className="choice-input"
-                / >
-              {option}
-            </label>
-      ))
+//  WORKING HERE ***************************************************************
 
-      return(
-        <Fragment  key={index}>
-          <article>
-            <div className="tag-container">
-              <span className="tag category-tag">{item.category}</span>
-              <span className="tag difficulty-tag">{item.difficulty}</span>
-            </div>
-            <h2>{index + 1}. {item.question}</h2>
-            <div className='choices-container'>
-              {displayOptions}
-            </div>
-          </article>
-          <hr />
-        </Fragment >
-      )
+    function handleOptionChange(e){
+
+      setResponses(prevResponses => {
+        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
+        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
+        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
+        return sortedFilteredResponses
+      })
+
+    } //  END OF handleOptionChange
+
+//  WORKING HERE ***************************************************************
+
+    const displayOptions = itemOptions.map((option, index) => ( 
+        <label key={index} className="choice-label">
+          <input 
+                type='radio'
+                // id={index}
+                name={questionIndex}
+                value={option}
+                className="choice-input"
+                onChange={(e) => handleOptionChange(e) }
+              / >
+            {option}
+          </label>
+    ))
+
+    return(
+      <Fragment  key={index}>
+        <article>
+          <div className="tag-container">
+            <span className="tag category-tag">{item.category}</span>
+            <span className="tag difficulty-tag">{item.difficulty}</span>
+          </div>
+          <h2>{index + 1}. {item.question}</h2>
+          <div className='choices-container'>
+            {displayOptions}
+          </div>
+        </article>
+        <hr />
+      </Fragment >
+    )
   })  //  END OF MAP
+
+//  BUGS
+//    -  responses or not in 
+  console.log('responses: ', responses)
 
 // HANDLING CHECK ANSWERS
 
