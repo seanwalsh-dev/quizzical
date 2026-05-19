@@ -61,11 +61,9 @@ let itemOptions
       itemOptions = shuffleOptionsArr(optionsArr)
     }  //  END OF IF STATEMENT
 
-//  DISPLAYING THE QUIZ
+//  HANDLE Response CHANGE
 
-//  WORKING HERE ***************************************************************
-
-    function handleOptionChange(e){
+    function handleResponseChange(e){
 
       setResponses(prevResponses => {
         const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
@@ -74,9 +72,9 @@ let itemOptions
         return sortedFilteredResponses
       })
 
-    } //  END OF handleOptionChange
+    }
 
-//  WORKING HERE ***************************************************************
+//  DISPLAY OPTIONS
 
     const displayOptions = itemOptions.map((option, index) => ( 
         <label key={index} className="choice-label">
@@ -86,11 +84,13 @@ let itemOptions
                 name={questionIndex}
                 value={option}
                 className="choice-input"
-                onChange={(e) => handleOptionChange(e) }
+                onChange={(e) => handleResponseChange(e) }
               / >
             {option}
           </label>
     ))
+
+//  DISPLAY ITEMS
 
     return(
       <Fragment  key={index}>
@@ -109,8 +109,6 @@ let itemOptions
     )
   })  //  END OF MAP
 
-//  BUGS
-//    -  responses or not in 
   console.log('responses: ', responses)
 
 // HANDLING CHECK ANSWERS
