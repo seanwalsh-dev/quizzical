@@ -85,9 +85,14 @@ export default function Quiz(props) {
     }  //  END OF IF STATEMENT
 
 //  DISPLAYING THE QUIZ
+
       return(
         <Fragment  key={index}>
           <article>
+            <div className="tag-container">
+              <span className="tag category-tag">{item.category}</span>
+              <span className="tag difficulty-tag">{item.difficulty}</span>
+            </div>
             <h2>{index + 1}. {item.question}</h2>
             <div className='choices-container'>
               {displayOptions}
@@ -95,7 +100,6 @@ export default function Quiz(props) {
           </article>
           <hr />
         </Fragment >
-        
       )
   })  //  END OF MAP
 
