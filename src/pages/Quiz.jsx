@@ -29,31 +29,22 @@ export default function Quiz(props) {
       [...item.incorrect_answers, item.correct_answer]
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
-    let displayOptions
+
+//  WORKING HERE ****************************************************************
+
+let itemOptions
+
+//  WORKING HERE ****************************************************************
+
 //  IF BOOLEAN
 
     if(item.type === 'boolean'){
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
 
-      const booleanOptions = optionsArr[0] === 'True' ?
+      itemOptions = optionsArr[0] === 'True' ?
         optionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
         optionsArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
-
-//  MAP THROUGH BOOLEAN OPTIONS TO CREATE RADIO BUTTONS
-
-      displayOptions = booleanOptions.map((option, index) => ( 
-        <label key={index} className="choice-label">
-          <input 
-                type='radio'
-                // id={index}
-                name={questionIndex}
-                value={option}
-                className="choice-input"
-              / >
-            {option}
-          </label>
-    ))
 
 //  IF MULTIPLE CHOICE
 
@@ -70,25 +61,23 @@ export default function Quiz(props) {
         return arr
       }
 
-      const shuffledOptions = shuffleOptionsArr(optionsArr)
-
-//  MAP THROUGH SHUFFLED ANSWERS
-
-      displayOptions = shuffledOptions.map((option, index) => (
-        <label key={index} className="choice-label">
-          <input 
-                type='radio'
-                // id={index}
-                name={questionIndex}
-                value={option}
-                className="choice-input"
-              / >
-            {option}
-          </label>
-      ))
+      itemOptions = shuffleOptionsArr(optionsArr)
     }  //  END OF IF STATEMENT
 
 //  DISPLAYING THE QUIZ
+
+      const displayOptions = itemOptions.map((option, index) => ( 
+          <label key={index} className="choice-label">
+            <input 
+                  type='radio'
+                  // id={index}
+                  name={questionIndex}
+                  value={option}
+                  className="choice-input"
+                / >
+              {option}
+            </label>
+      ))
 
       return(
         <Fragment  key={index}>
