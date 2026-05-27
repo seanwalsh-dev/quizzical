@@ -43,7 +43,6 @@ function handleStartQuiz(){
         }
 
         setApiData(decodedApiData)
-
       })
   }
 

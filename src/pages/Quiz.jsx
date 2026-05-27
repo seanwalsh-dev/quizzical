@@ -1,33 +1,47 @@
 import { Fragment } from 'react'
 import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function Quiz(props) {
 
 //  STATE
 
   const [responses, setResponses] = useState([])  
-    
-  // console.log('API Data: ', props.apiData)
   
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
-  const quizItems = props.apiData?.results //  Only try to access results if data exsists.
-  if(!Array.isArray(quizItems)){ //  If quizItems is not an array, return.
+  const quizData = props.apiData?.results //  Only try to access results if data exsists.
+  
+//  WORKING HERE ***************************************************************
+
+  useEffect(() => {
+    console.log('Quiz Items: ', quizData)
+  }, [quizData])
+
+//  WORKING HERE ***************************************************************
+  
+  if(!Array.isArray(quizData)){ //  If quizData is not an array, return.
     return <h1>Loading Quiz...</h1>
   }
 
-// MAPPING THROUGH quizItems
+//  FUNCTIONS
 
-  const quiz = quizItems.map((item, index) =>{
+  function createOptionsArr(item){
+    return item.incorrect_answers.includes(item.correct_answer) ?
+      [...item.correct_answer] : 
+      [...item.incorrect_answers, item.correct_answer]
+  }
+
+// MAPPING THROUGH quizData
+
+  const quiz = quizData.map((item, index) =>{
 
     const questionIndex = index
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-
-    const optionsArr = 
-    item.incorrect_answers.includes(item.correct_answer) ?
-      [...item.correct_answer] : 
-      [...item.incorrect_answers, item.correct_answer]
+    createOptionsArr(item)
+    
+    
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
@@ -39,9 +53,9 @@ let itemOptions
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
 
-      itemOptions = optionsArr[0] === 'True' ?
-        optionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
-        optionsArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
+      itemOptions = createOptionsArr[0] === 'True' ?
+        createOptionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
+        createOptionsArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
 
 //  IF MULTIPLE CHOICE
 
@@ -58,7 +72,7 @@ let itemOptions
         return arr
       }
 
-      itemOptions = shuffleOptionsArr(optionsArr)
+      itemOptions = shuffleOptionsArr(createOptionsArr)
     }  //  END OF IF STATEMENT
 
 //  HANDLE Response CHANGE
@@ -109,11 +123,7 @@ let itemOptions
     )
   })  //  END OF MAP
 
-  console.log('responses: ', responses)
-
 // HANDLING CHECK ANSWERS
-
-console.log('quizItems', quizItems)
 
   function handleCheckAnswers(event){
 
@@ -126,10 +136,8 @@ console.log('quizItems', quizItems)
 */
 
     event.preventDefault()
-    console.log('Checking Answers...')
 
-    const correctAnswers = quizItems.map((item, index) => ({itemIndex: index, answer: item.correct_answer}))
-    console.log('Correct Answers: ', correctAnswers)
+    const correctAnswers = quizData.map((item, index) => ({itemIndex: index, answer: item.correct_answer}))
 
     
       if(responses.length === correctAnswers.length){
@@ -140,6 +148,13 @@ console.log('quizItems', quizItems)
         }
       } else {
         console.log('You have not answered all of the questions')
+/*
+Perhaps setResponses to {itemIndex: #, response: null} for as many items that 
+have been selected that way unanswered questions are considered wrong.
+
+And then the first time the button is clicked with a null answer it can give you 
+a warning, but on subsequent clicks it grades it as wrong
+*/
       }
 
   }
