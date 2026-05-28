@@ -84,29 +84,41 @@ let itemOptions
 
     }  //  END OF IF STATEMENT
 
+return itemOptions
+
+  })  //  END OF MAP
 //  End of organizing data ****************************************************
 
+console.log('itemOptions: ', quiz)
+
+/*
+
+    - return the results of map in an element
+    - use that element in the display
+    - map over the the element to display
+
+*/
 
 
 //  DISPLAY OPTIONS
 
-    const displayOptions = itemOptions.map((option, index) => ( 
-        <label key={index} className="choice-label">
-          <input 
-                type='radio'
-                // id={index}
-                name={questionIndex}
-                value={option}
-                className="choice-input"
-                onChange={(e) => handleResponseChange(e) }
-              / >
-            {option}
-          </label>
-    ))
+    // const displayOptions = itemOptions.map((option, index) => ( 
+    //     <label key={index} className="choice-label">
+    //       <input 
+    //             type='radio'
+    //             // id={index}
+    //             name={questionIndex}
+    //             value={option}
+    //             className="choice-input"
+    //             onChange={(e) => handleResponseChange(e) }
+    //           / >
+    //         {option}
+    //       </label>
+    // ))
 
 //  DISPLAY ITEMS
 
-    return(
+    /* return(
       <Fragment  key={index}>
         <article>
           <div className="tag-container">
@@ -120,8 +132,8 @@ let itemOptions
         </article>
         <hr />
       </Fragment >
-    )
-  })  //  END OF MAP
+    ) */
+
 
 // HANDLING CHECK ANSWERS
 
