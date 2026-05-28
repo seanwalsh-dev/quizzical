@@ -31,18 +31,19 @@ function handleStartQuiz(){
     fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
       .then(res => res.json())
       .then(data =>{
-        console.log('data', data)
+
         const decodedApiData = {
           ...data,
           results: data.results.map(item => ({
-          ...item,
-          question: he.decode(item.question),
-          correct_answer: he.decode(item.correct_answer),
-          incorrect_answers: item.incorrect_answers.map(answer => he.decode(answer)),
-          category: he.decode(item.category)
+            category: he.decode(item.category),
+            correctAnswer: he.decode(item.correct_answer),
+            difficulty: item.difficulty,
+            incorrectAnswers: item.incorrect_answers.map(answer => he.decode(answer)),
+            question: he.decode(item.question),
+            type: item.type
           }))
         }
-        console.log('Decoded API Data: ', decodedApiData)
+
         setApiData(decodedApiData)
       })
   }

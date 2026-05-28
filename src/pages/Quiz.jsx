@@ -32,7 +32,7 @@ export default function Quiz(props) {
   const processedData = quizData.map((item) =>{ // Process quizData to display it
     
     let choicesArr
-    const optionsArr = [...item.incorrect_answers, item.correct_answer]
+    const optionsArr = [...item.incorrectAnswers, item.correctAnswer]
   
     if(item.type === 'boolean'){  //  If boolean, True is first
 
@@ -47,14 +47,9 @@ export default function Quiz(props) {
     }  //  END OF IF STATEMENT
 
     const processedItem = {
-      category: item.category,
-      choices: choicesArr, 
-      correctAnswer: item.correct_answer,
-      difficulty: item.difficulty,
-      incorrectAnswers: item.incorrect_answers,
-      question: item.question,
-      type: item.type
-    }  //  Add the all_answers property to the item object.
+      ...item,
+      choices: choicesArr, //  Add the choices property to the item object.
+    }
 
 
     return processedItem
