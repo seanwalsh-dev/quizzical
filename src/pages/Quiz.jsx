@@ -23,7 +23,7 @@ export default function Quiz(props) {
   const quizData = props.apiData?.results //  Only try to access results if data exsists.
 
   useEffect(() => {
-    console.log('Quiz Items: ', quizData)
+    // console.log('Quiz Items: ', quizData)
   }, [quizData])
   
   if(!Array.isArray(quizData)){ //  If quizData is not an array, return.
@@ -33,6 +33,7 @@ export default function Quiz(props) {
 //  FUNCTIONS ******************************************************************
 
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
+//  THIS HAS A BUG
   function optionsArr(item) {
     return item.incorrect_answers.includes(item.correct_answer) ?
       [...item.correct_answer] : 
@@ -64,13 +65,9 @@ export default function Quiz(props) {
     }
 
 // MAPPING THROUGH quizData **************************************************
-  const quiz = quizData.map((item, index) =>{
+  const processedQuizData = quizData.map((item) =>{ // Process quizData to display it
 
-    const questionIndex = index
-
-//  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
-
-let itemOptions
+    let itemOptions
 
     if(item.type === 'boolean'){  //  If boolean, True is first
 
@@ -84,12 +81,29 @@ let itemOptions
 
     }  //  END OF IF STATEMENT
 
-return itemOptions
+    const processedItem = {
+      category: item.category,
+      choices: itemOptions, 
+      correctAnswer: item.correct_answer,
+      difficulty: item.difficulty,
+      incorrectAnswers: item.incorrect_answers,
+      question: item.question,
+      type: item.type
+    }  //  Add the all_answers property to the item object.
+
+
+    return processedItem
 
   })  //  END OF MAP
 //  End of organizing data ****************************************************
 
-console.log('itemOptions: ', quiz)
+
+/*
+
+  - quiz should be:
+    [{category, correct_answer, difficulty, all_answers, question, type}, ...]
+
+*/
 
 /*
 
@@ -102,37 +116,38 @@ console.log('itemOptions: ', quiz)
 
 //  DISPLAY OPTIONS
 
-    // const displayOptions = itemOptions.map((option, index) => ( 
-    //     <label key={index} className="choice-label">
-    //       <input 
-    //             type='radio'
-    //             // id={index}
-    //             name={questionIndex}
-    //             value={option}
-    //             className="choice-input"
-    //             onChange={(e) => handleResponseChange(e) }
-    //           / >
-    //         {option}
-    //       </label>
-    // ))
+  const displayItems = processedQuizData.map((item, questionIndex) => {
+    
+    const displayOptions = item.choices.map((option, optionIndex) => (
+      <label key={`${questionIndex}-${optionIndex}`} className="choice-label">
+            <input 
+                type='radio'
+                name={questionIndex}
+                value={option}
+                className="choice-input"
+                onChange={(e) => handleResponseChange(e) }
+              />
+            {option}
+          </label>
+    ))
 
-//  DISPLAY ITEMS
-
-    /* return(
-      <Fragment  key={index}>
+    return (
+      <Fragment  key={questionIndex}>
         <article>
           <div className="tag-container">
             <span className="tag category-tag">{item.category}</span>
             <span className="tag difficulty-tag">{item.difficulty}</span>
           </div>
-          <h2>{index + 1}. {item.question}</h2>
+          <h2>{questionIndex + 1}. {item.question}</h2>
           <div className='choices-container'>
             {displayOptions}
           </div>
         </article>
         <hr />
       </Fragment >
-    ) */
+    )
+
+  })
 
 
 // HANDLING CHECK ANSWERS
@@ -173,7 +188,7 @@ a warning, but on subsequent clicks it grades it as wrong
 
   return(
     <form className='quiz-form' onSubmit={handleCheckAnswers}>
-      {quiz}
+      {displayItems}
       <button type="submit" className='start-btn'>Check Answers</button>
     </form>
   ) 
