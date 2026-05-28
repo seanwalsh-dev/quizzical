@@ -2,62 +2,34 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-
-/*
-
-  +  fetch raw data
-  -  making data usable
-  -  displaying the data
-  -  
-
-*/
-
 export default function Quiz(props) {
 
 //  STATE
 
   const [responses, setResponses] = useState([])  
+  const [processedQuizData, setProcessedQuizData] = useState([])
   
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
   const quizData = props.apiData?.results //  Only try to access results if data exsists.
 
   useEffect(() => {
-    // console.log('Quiz Items: ', quizData)
-  }, [quizData])
-  
-  if(!Array.isArray(quizData)){ //  If quizData is not an array, return.
-    return <h1>Loading Quiz...</h1>
-  }
 
-//  FUNCTIONS ******************************************************************
+    if(!Array.isArray(quizData)) return
 
-//  FISHER-YATES SHUFFLE
+    //  FISHER-YATES SHUFFLE
 
-  function shuffleOptionsArr(array){
-    const arr = [...array]
-    for (let i = arr.length - 1; i > 0; i--){
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-    return arr
-  }
-
-//  HANDLE Response CHANGE
-
-    function handleResponseChange(e){
-
-      setResponses(prevResponses => {
-        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
-        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
-        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
-        return sortedFilteredResponses
-      })
-
+    function shuffleOptionsArr(array){
+      const arr = [...array]
+      for (let i = arr.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[arr[i], arr[j]] = [arr[j], arr[i]]
+      }
+      return arr
     }
 
-// MAPPING THROUGH quizData **************************************************
-  const processedQuizData = quizData.map((item) =>{ // Process quizData to display it
+// PROCESS DATA SO IT CAN BE USED TO DISPLAY
+  const processedData = quizData.map((item) =>{ // Process quizData to display it
     console.log('Processing Item: ', item)
     
     let choicesArr
@@ -89,8 +61,29 @@ export default function Quiz(props) {
     return processedItem
 
   })  //  END OF MAP
-//  End of organizing data ****************************************************
 
+  setProcessedQuizData(processedData)
+
+  }, [quizData])  //  END OF USE EFFECT
+  
+  
+  if(!Array.isArray(quizData)){ //  If quizData is not an array, show loading message.
+    return <h1>Loading Quiz...</h1>
+  }
+
+
+//  HANDLE RESPONSE CHANGE
+
+    function handleResponseChange(e){
+
+      setResponses(prevResponses => {
+        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
+        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
+        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
+        return sortedFilteredResponses
+      })
+
+    }
 
 
 //  DISPLAY OPTIONS
