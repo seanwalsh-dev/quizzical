@@ -30,7 +30,6 @@ export default function Quiz(props) {
 
 // PROCESS DATA SO IT CAN BE USED TO DISPLAY
   const processedData = quizData.map((item) =>{ // Process quizData to display it
-    console.log('Processing Item: ', item)
     
     let choicesArr
     const optionsArr = [...item.incorrect_answers, item.correct_answer]
