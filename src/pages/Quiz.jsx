@@ -2,6 +2,15 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
+
+/*
+
+-  making data usable
+-  displaying the data
+-  
+
+*/
+
 export default function Quiz(props) {
 
 //  STATE
@@ -11,37 +20,32 @@ export default function Quiz(props) {
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
   const quizData = props.apiData?.results //  Only try to access results if data exsists.
-  
-//  WORKING HERE ***************************************************************
 
   useEffect(() => {
     console.log('Quiz Items: ', quizData)
   }, [quizData])
-
-//  WORKING HERE ***************************************************************
   
   if(!Array.isArray(quizData)){ //  If quizData is not an array, return.
     return <h1>Loading Quiz...</h1>
   }
 
-//  FUNCTIONS
+//  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
 
-  function createOptionsArr(item){
-    return item.incorrect_answers.includes(item.correct_answer) ?
-      [...item.correct_answer] : 
-      [...item.incorrect_answers, item.correct_answer]
-  }
+    const optionsArr = (item) => {
+      return item.incorrect_answers.includes(item.correct_answer) ?
+        [...item.correct_answer] : 
+        [...item.incorrect_answers, item.correct_answer]
+    } 
+    
+
+
+
 
 // MAPPING THROUGH quizData
 
   const quiz = quizData.map((item, index) =>{
 
     const questionIndex = index
-
-//  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-    createOptionsArr(item)
-    
-    
 
 //  CHECK IF THE QUESTION IS BOOLEAN OR MULTIPLE CHOICE
 
@@ -53,9 +57,9 @@ let itemOptions
 
 //  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
 
-      itemOptions = createOptionsArr[0] === 'True' ?
-        createOptionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
-        createOptionsArr.reverse()  //  Otherwise, reverse the order to make 'True' the first option.
+      itemOptions = optionsArr[0] === 'True' ?
+        optionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
+        optionsArr(item).reverse()  //  Otherwise, reverse the order to make 'True' the first option.
 
 //  IF MULTIPLE CHOICE
 
@@ -72,7 +76,7 @@ let itemOptions
         return arr
       }
 
-      itemOptions = shuffleOptionsArr(createOptionsArr)
+      itemOptions = shuffleOptionsArr(optionsArr(item))
     }  //  END OF IF STATEMENT
 
 //  HANDLE Response CHANGE
