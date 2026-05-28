@@ -29,20 +29,29 @@ export default function Quiz(props) {
     return <h1>Loading Quiz...</h1>
   }
 
+//  FUNCTIONS ******************************************************************
+
 //  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-
-    const optionsArr = (item) => {
-      return item.incorrect_answers.includes(item.correct_answer) ?
-        [...item.correct_answer] : 
-        [...item.incorrect_answers, item.correct_answer]
-    } 
+  function optionsArr(item) {
+    return item.incorrect_answers.includes(item.correct_answer) ?
+      [...item.correct_answer] : 
+      [...item.incorrect_answers, item.correct_answer]
+  } 
     
+//  FISHER-YATES SHUFFLE
 
+  function shuffleOptionsArr(array){
+    const arr = [...array]
+    for (let i = arr.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    return arr
+  }
 
 
 
 // MAPPING THROUGH quizData
-
   const quiz = quizData.map((item, index) =>{
 
     const questionIndex = index
@@ -51,32 +60,16 @@ export default function Quiz(props) {
 
 let itemOptions
 
-//  IF BOOLEAN
+    if(item.type === 'boolean'){  //  If boolean, True is first
 
-    if(item.type === 'boolean'){
+      itemOptions = optionsArr(item)[0] === 'True' ?
+        optionsArr(item) :                            //  If 'True' if first, then the options are in the correct order.
+        optionsArr(item).reverse()                    //  Otherwise, reverse the order to make 'True' the first option.
 
-//  MAP THROUGH OPTIONS TO DISPLAY THE CORRECT ORDER
-
-      itemOptions = optionsArr[0] === 'True' ?
-        optionsArr :  //  If the first incorrect answer is 'True', then the options are in the correct order.
-        optionsArr(item).reverse()  //  Otherwise, reverse the order to make 'True' the first option.
-
-//  IF MULTIPLE CHOICE
-
-    } else {
-
-//  FISHER-YATES SHUFFLE
-
-      function shuffleOptionsArr(array){
-        const arr = [...array]
-        for (let i = arr.length - 1; i > 0; i--){
-          const j = Math.floor(Math.random() * (i + 1))
-          ;[arr[i], arr[j]] = [arr[j], arr[i]]
-        }
-        return arr
-      }
+    } else {  //  IF MULTIPLE CHOICE, SHUFFLE THE OPTIONS
 
       itemOptions = shuffleOptionsArr(optionsArr(item))
+
     }  //  END OF IF STATEMENT
 
 //  HANDLE Response CHANGE
