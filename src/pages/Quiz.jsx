@@ -32,14 +32,6 @@ export default function Quiz(props) {
 
 //  FUNCTIONS ******************************************************************
 
-//  CREATE AN ARRAY OF BOTH CORRECT AND INCORRECT ANSWERS
-//  THIS HAS A BUG
-  function optionsArr(item) {
-    return item.incorrect_answers.includes(item.correct_answer) ?
-      [...item.correct_answer] : 
-      [...item.incorrect_answers, item.correct_answer]
-  } 
-    
 //  FISHER-YATES SHUFFLE
 
   function shuffleOptionsArr(array){
@@ -66,24 +58,26 @@ export default function Quiz(props) {
 
 // MAPPING THROUGH quizData **************************************************
   const processedQuizData = quizData.map((item) =>{ // Process quizData to display it
-
-    let itemOptions
-
+    console.log('Processing Item: ', item)
+    
+    let choicesArr
+    const optionsArr = [...item.incorrect_answers, item.correct_answer]
+  
     if(item.type === 'boolean'){  //  If boolean, True is first
 
-      itemOptions = optionsArr(item)[0] === 'True' ?
-        optionsArr(item) :                            //  If 'True' if first, then the options are in the correct order.
-        optionsArr(item).reverse()                    //  Otherwise, reverse the order to make 'True' the first option.
+      choicesArr = optionsArr[0] === 'True' ?
+        optionsArr :                            //  If 'True' if first, then the options are in the correct order.
+        optionsArr.reverse()                    //  Otherwise, reverse the order to make 'True' the first option.
 
     } else {  //  IF MULTIPLE CHOICE, SHUFFLE THE OPTIONS
 
-      itemOptions = shuffleOptionsArr(optionsArr(item))
+      choicesArr = shuffleOptionsArr(optionsArr)
 
     }  //  END OF IF STATEMENT
 
     const processedItem = {
       category: item.category,
-      choices: itemOptions, 
+      choices: choicesArr, 
       correctAnswer: item.correct_answer,
       difficulty: item.difficulty,
       incorrectAnswers: item.incorrect_answers,
@@ -97,21 +91,6 @@ export default function Quiz(props) {
   })  //  END OF MAP
 //  End of organizing data ****************************************************
 
-
-/*
-
-  - quiz should be:
-    [{category, correct_answer, difficulty, all_answers, question, type}, ...]
-
-*/
-
-/*
-
-    - return the results of map in an element
-    - use that element in the display
-    - map over the the element to display
-
-*/
 
 
 //  DISPLAY OPTIONS
