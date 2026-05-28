@@ -65,21 +65,6 @@ export default function Quiz(props) {
     return <h1>Loading Quiz...</h1>
   }
 
-
-//  HANDLE RESPONSE CHANGE
-
-    function handleResponseChange(e){
-
-      setResponses(prevResponses => {
-        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
-        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
-        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
-        return sortedFilteredResponses
-      })
-
-    }
-
-
 //  DISPLAY OPTIONS
 
   const displayItems = processedQuizData.map((item, questionIndex) => {
@@ -115,6 +100,18 @@ export default function Quiz(props) {
 
   })
 
+//  HANDLE RESPONSE CHANGE
+
+  function handleResponseChange(e){
+
+    setResponses(prevResponses => {
+      const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
+      const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
+      const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
+      return sortedFilteredResponses
+    })
+
+  }
 
 // HANDLING CHECK ANSWERS
 
