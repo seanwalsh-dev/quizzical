@@ -5,9 +5,10 @@ import { useEffect } from 'react'
 
 /*
 
--  making data usable
--  displaying the data
--  
+  +  fetch raw data
+  -  making data usable
+  -  displaying the data
+  -  
 
 */
 
@@ -49,9 +50,20 @@ export default function Quiz(props) {
     return arr
   }
 
+//  HANDLE Response CHANGE
 
+    function handleResponseChange(e){
 
-// MAPPING THROUGH quizData
+      setResponses(prevResponses => {
+        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
+        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
+        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
+        return sortedFilteredResponses
+      })
+
+    }
+
+// MAPPING THROUGH quizData **************************************************
   const quiz = quizData.map((item, index) =>{
 
     const questionIndex = index
@@ -72,18 +84,9 @@ let itemOptions
 
     }  //  END OF IF STATEMENT
 
-//  HANDLE Response CHANGE
+//  End of organizing data ****************************************************
 
-    function handleResponseChange(e){
 
-      setResponses(prevResponses => {
-        const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
-        const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
-        const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
-        return sortedFilteredResponses
-      })
-
-    }
 
 //  DISPLAY OPTIONS
 
