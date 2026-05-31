@@ -6,7 +6,7 @@ export default function Quiz(props) {
 
 //  STATE
 
-  const [responses, setResponses] = useState([])  
+  // const [responses, setResponses] = useState([])  
   const [processedQuizData, setProcessedQuizData] = useState([])
   
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
@@ -49,6 +49,7 @@ export default function Quiz(props) {
     const processedItem = {
       ...item,
       choices: choicesArr, //  Add the choices property to the item object.
+      userResponse: null //  Initialize userResponse to null.
     }
 
 
@@ -116,52 +117,48 @@ NOTES
 */
 
   function handleResponseChange(e){
+    
+    console.log(e.target)
 
-    setResponses(prevResponses => {
-      const filteredResponses = prevResponses.filter(response => response.itemIndex !== Number(e.target.name))  //  Filter out responses from the same question.
-      const addResponse = [...filteredResponses, {itemIndex: Number(e.target.name), response: e.target.value}]  //  Add the new response to the filtered responses.
-      const sortedFilteredResponses = addResponse.sort((a, b) => a.itemIndex - b.itemIndex)  //  Sort the filtered responses by itemIndex.
-      return sortedFilteredResponses
-    })
-
-  }
-
-  console.log('Responses: ', responses)
+    setProcessedQuizData(prevData => {
+       //  e.target.name == processedQiuzData index 
+      const updatedData = prevData.map((item, index) => {
+        
+        if(index === Number(e.target.name)){
+          return {
+            ...item,
+            userResponse: e.target.value
+          }
+        } else {
+          return item
+        } //  END OF IF STATEMENT
+      })  //  END OF MAP
+      return updatedData
+      }) // END of updatedData
+  } // END OF handleResponseChange
 
 // HANDLING CHECK ANSWERS
 
   function handleCheckAnswers(event){
 
-/*
-
-  +  We need to know the users answers and the correct answers
-  -  compare the responses with the correct answers.
-    -  for of loop?
-
-*/
-
     event.preventDefault()
 
-    const correctAnswers = quizData.map((item, index) => ({itemIndex: index, answer: item.correct_answer}))
+    console.log('processedQuizData: ', processedQuizData)
 
-    
-      if(responses.length === correctAnswers.length){
-        for (let i = 0; i < correctAnswers.length; i++){
-          responses[i].response === correctAnswers[i].answer ?
-            console.log(`Number ${correctAnswers[i].itemIndex + 1} is Correct!`) : 
-            console.log(`Number ${correctAnswers[i].itemIndex + 1} is Incorrect!`)
-        }
+    const checkedResponses = processedQuizData.map(item => {
+      if(item.userResponse === item.correctAnswer){
+        console.log(`Number ${processedQuizData.indexOf(item) + 1} is correct!`)
+        //  background of selected checkbox turns green
       } else {
-        console.log('You have not answered all of the questions')
-/*
-Perhaps setResponses to {itemIndex: #, response: null} for as many items that 
-have been selected that way unanswered questions are considered wrong.
-
-And then the first time the button is clicked with a null answer it can give you 
-a warning, but on subsequent clicks it grades it as wrong
-*/
+        console.log(`Number ${processedQuizData.indexOf(item) + 1} is incorrect.`)
+        //  background of selected checkbox turns red
+        //  background of correct answer turns green
       }
-
+    })
+    return checkedResponses
+    // You scorced 3/5 correct answers
+    // button turns to 'Play again'
+      //  clicking 'Play again' resets the quiz and takes you back to the home page
   }
 
   return(
