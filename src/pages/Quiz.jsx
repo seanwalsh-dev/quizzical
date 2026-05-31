@@ -102,6 +102,19 @@ export default function Quiz(props) {
 
 //  HANDLE RESPONSE CHANGE
 
+/*
+
+NOTES
+********************************************************************************
+  - instead of handleResponseChange -> handleCheckAnswers
+
+    - handleResponseChange adds userResponse to processedQuizData ->
+      handleCheckAnswer compares userResponse to correctAnswer
+
+********************************************************************************
+
+*/
+
   function handleResponseChange(e){
 
     setResponses(prevResponses => {
@@ -112,6 +125,8 @@ export default function Quiz(props) {
     })
 
   }
+
+  console.log('Responses: ', responses)
 
 // HANDLING CHECK ANSWERS
 
