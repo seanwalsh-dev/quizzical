@@ -43,11 +43,12 @@ Quiz
 
 
 
-import { Fragment } from 'react'
+
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { clsx } from 'clsx'
 import { useNavigate } from "react-router-dom"
+
+import Question from '../Components/Question'
 
 export default function Quiz(props) {
 
@@ -123,55 +124,6 @@ export default function Quiz(props) {
 
 // <Questions /> *********************************************************************************************************************************************************************
 
-//  DISPLAY OPTIONS
-
-  const displayItems = processedQuizData.map((item, questionIndex) => {
-
-// <Questions />  ./  <Choice /> **********************************************************************************************************************************************************************
-    const displayOptions = item.choices.map((option, optionIndex) => {
-
-      const styles = clsx({
-        'choice-label': true,
-        'selected-choice': item.userResponse === option && !isQuizSubmitted.complete,
-        'hovered-choice': !isQuizSubmitted.complete,
-        'correct-answer': (item.userResponse && option === item.correctAnswer) && isQuizSubmitted.complete,
-        'incorrect-answer': (item.userResponse === option && option !== item.correctAnswer) && isQuizSubmitted.complete,
-        'unanswered': !item.userResponse && isQuizSubmitted.attempted && !allQuestionsAnswered
-      })
-
-      return(
-        <label key={`${questionIndex}-${optionIndex}`} className={styles}>
-            <input 
-                type='radio'
-                name={questionIndex}
-                value={option}
-                className="choice-input"
-                onChange={(e) => handleResponseChange(e) }
-              />
-            {option}
-          </label>
-      )
-  })  // End of displayOptions map
-
-// End of <Choice /> **********************************************************************************************************************************************************************
-
-    return (
-      <Fragment  key={questionIndex}>
-        <article>
-          <div className="tag-container">
-            <span className="tag category-tag">{item.category}</span>
-            <span className="tag difficulty-tag">{item.difficulty}</span>
-          </div>
-          <h2>{questionIndex + 1}. {item.question}</h2>
-          <div className='choices-container'>
-            {displayOptions}
-          </div>
-        </article>
-        <hr />
-      </Fragment >
-    )
-  })  //  End of displayItems map
-
 // End of <Questions /> ********************************************************************************************************************************************************************
 
 
@@ -221,7 +173,12 @@ export default function Quiz(props) {
 
   return(
     <form className='quiz-form' onSubmit={handleCheckAnswers}>
-      {displayItems}
+      <Question 
+        processedQuizData={processedQuizData}
+        isQuizSubmitted={isQuizSubmitted}
+        allQuestionsAnswered={allQuestionsAnswered}
+        handleResponseChange={handleResponseChange}
+      />
 
 {/* <Results /> ********************************************************************************************************************************************************************* */}
       <div className='check-answers-container'>
