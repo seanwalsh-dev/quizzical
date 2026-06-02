@@ -49,6 +49,8 @@ import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 
 import Question from '../Components/Question'
+import QuizControls from '../Components/QuizControls'
+
 
 export default function Quiz(props) {
 
@@ -122,10 +124,6 @@ export default function Quiz(props) {
     return <h1>Loading Quiz...</h1>
   }
 
-// <Questions /> *********************************************************************************************************************************************************************
-
-// End of <Questions /> ********************************************************************************************************************************************************************
-
 
 //  HANDLE FUNCTIONS
 
@@ -181,22 +179,11 @@ export default function Quiz(props) {
       />
 
 {/* <Results /> ********************************************************************************************************************************************************************* */}
-      <div className='check-answers-container'>
-        {isQuizSubmitted.complete && 
-          <h3>
-            You scored {processedQuizData.filter(item => 
-              item.userResponse === item.correctAnswer)
-              .length}/{processedQuizData.length} correct answers
-          </h3>
-        }
-        <button 
-          type={isQuizSubmitted.complete ? "button" : "submit"}
-          onClick={isQuizSubmitted.complete ? () => handlePlayAgain() : null}
-          className='start-btn'
-        >
-            {isQuizSubmitted.complete ? "Play Again" : "Check Answers"}
-          </button>
-      </div>
+      <QuizControls
+        isQuizSubmitted={isQuizSubmitted}
+        processedQuizData={processedQuizData}
+        handlePlayAgain={handlePlayAgain}
+      />
 {/* End of <Results /> ********************************************************************************************************************************************************************* */}
     </form>
   ) 
