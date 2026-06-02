@@ -1,3 +1,17 @@
+/*
+
+App
+├── Home
+│   └── QuizSetupForm ***
+│
+└── Quiz
+    ├── Question
+    │   └── Choice
+    │
+    └── Results
+
+*/
+
 import { useNavigate } from "react-router-dom"
 
 export default function Home(props){

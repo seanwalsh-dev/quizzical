@@ -2,10 +2,41 @@
 
 TODO:
 
-  - merge and push
-  - create feature/components branch
-  - put into separate componenets
+  - put into separate components
   - clean up CSS and design
+
+App
+├── Home
+│   └── QuizSetupForm
+│
+└── Quiz ***
+    ├── Question
+    │   └── Choice
+    │
+    └── Results
+
+
+
+Quiz
+├── owns state
+├── owns handlers
+├── processes API data
+├── calculates score
+│
+├── Question
+│     ├── question text
+│     ├── category
+│     ├── difficulty
+│     └── maps choices
+│
+├── Choice
+│     ├── radio input
+│     ├── clsx styling
+│     └── click handling
+│
+└── Results
+      ├── score display
+      └── play again button
 
 */
 
@@ -85,15 +116,18 @@ export default function Quiz(props) {
 
   }, [quizData])  //  end of useEffect
   
-  
+
   if(!Array.isArray(quizData)){ //  If quizData is not an array, show loading message.
     return <h1>Loading Quiz...</h1>
   }
 
+// <Questions /> *********************************************************************************************************************************************************************
+
 //  DISPLAY OPTIONS
 
   const displayItems = processedQuizData.map((item, questionIndex) => {
-    
+
+// <Questions />  ./  <Choice /> **********************************************************************************************************************************************************************
     const displayOptions = item.choices.map((option, optionIndex) => {
 
       const styles = clsx({
@@ -119,6 +153,8 @@ export default function Quiz(props) {
       )
   })  // End of displayOptions map
 
+// End of <Choice /> **********************************************************************************************************************************************************************
+
     return (
       <Fragment  key={questionIndex}>
         <article>
@@ -135,6 +171,9 @@ export default function Quiz(props) {
       </Fragment >
     )
   })  //  End of displayItems map
+
+// End of <Questions /> ********************************************************************************************************************************************************************
+
 
 //  HANDLE FUNCTIONS
 
@@ -179,9 +218,12 @@ export default function Quiz(props) {
     navigate("/")
   }
 
+
   return(
     <form className='quiz-form' onSubmit={handleCheckAnswers}>
       {displayItems}
+
+{/* <Results /> ********************************************************************************************************************************************************************* */}
       <div className='check-answers-container'>
         {isQuizSubmitted.complete && 
           <h3>
@@ -198,6 +240,7 @@ export default function Quiz(props) {
             {isQuizSubmitted.complete ? "Play Again" : "Check Answers"}
           </button>
       </div>
+{/* End of <Results /> ********************************************************************************************************************************************************************* */}
     </form>
   ) 
 }
