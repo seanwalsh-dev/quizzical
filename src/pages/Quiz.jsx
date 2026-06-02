@@ -1,3 +1,17 @@
+/*
+
+TODO:
+
+  - merge and push
+  - create feature/components branch
+  - put into separate componenets
+  - clean up CSS and design
+
+*/
+
+
+
+
 import { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -38,6 +52,7 @@ export default function Quiz(props) {
     }
 
 // PROCESS DATA SO IT CAN BE USED TO DISPLAY
+
   const processedData = quizData.map((item) =>{ // Process quizData to display it
     
     let choicesArr
@@ -49,7 +64,7 @@ export default function Quiz(props) {
         optionsArr :                            //  If 'True' if first, then the options are in the correct order.
         optionsArr.reverse()                    //  Otherwise, reverse the order to make 'True' the first option.
 
-    } else {  //  IF MULTIPLE CHOICE, SHUFFLE THE OPTIONS
+    } else {  //  If multiple choice, shuffle the options
 
       choicesArr = shuffleOptionsArr(optionsArr)
 
@@ -64,11 +79,11 @@ export default function Quiz(props) {
 
     return processedItem
 
-  })  //  END OF MAP
+  })  //  end of quizData map
 
   setProcessedQuizData(processedData)
 
-  }, [quizData])  //  END OF USE EFFECT
+  }, [quizData])  //  end of useEffect
   
   
   if(!Array.isArray(quizData)){ //  If quizData is not an array, show loading message.
@@ -121,7 +136,7 @@ export default function Quiz(props) {
     )
   })  //  End of displayItems map
 
-//  HANDLE RESPONSE CHANGE
+//  HANDLE FUNCTIONS
 
   function handleResponseChange(e){
 
@@ -141,7 +156,7 @@ export default function Quiz(props) {
       }) // END of updatedData
   } // END OF handleResponseChange
 
-// HANDLING CHECK ANSWERS
+
 
   function handleCheckAnswers(event){
     event.preventDefault()
@@ -153,14 +168,10 @@ export default function Quiz(props) {
     } else {
       setIsQuizSubmitted(prev => ({...prev, complete: true}))
     }
-
-    // You scorced 3/5 correct answers
-    // button turns to 'Play again'
-      //  clicking 'Play again' resets the quiz and takes you back to the home page
   }
 
-  
 
+  
   function handlePlayAgain(){
     setProcessedQuizData([])
     setIsQuizSubmitted({complete: false, attempted: false})
