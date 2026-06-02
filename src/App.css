@@ -98,12 +98,12 @@ label{
   /* width: fit-content; */
 }
 
-.choice-label:hover {
+.hovered-choice:hover {
   background-color: #E8EBF9;
   border-color: #C9D2F3;
 }
 
-.choice-label:has(.choice-input:checked) {
+.selected-choice {
   background-color: #D6DBF5;
   border-color: #C9D2F3;
 }
@@ -111,6 +111,28 @@ label{
 .choice-input {
   appearance: none;
 }
+
+.correct-answer {
+  background-color: #94D7A2;
+  border-color: #94D7A2;
+  color: white;
+}
+.incorrect-answer {
+  background-color: #F9C8C8;
+  border-color: #F9C8C8;
+  color: white;
+}
+.unanswered {
+  background-color: #F5F7FB;
+  border-color: #F9C8C8;
+  color: #293264;
+}
+
+
+
+
+
+
 
 /* HR */
 

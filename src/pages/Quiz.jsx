@@ -1,14 +1,15 @@
 import { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { clsx } from 'clsx'
 
 export default function Quiz(props) {
 
 //  STATE
 
-  // const [responses, setResponses] = useState([])  
   const [processedQuizData, setProcessedQuizData] = useState([])
-  
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false)
+
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
   const quizData = props.apiData?.results //  Only try to access results if data exsists.
@@ -70,8 +71,19 @@ export default function Quiz(props) {
 
   const displayItems = processedQuizData.map((item, questionIndex) => {
     
-    const displayOptions = item.choices.map((option, optionIndex) => (
-      <label key={`${questionIndex}-${optionIndex}`} className="choice-label">
+    const displayOptions = item.choices.map((option, optionIndex) => {
+
+      const styles = clsx({
+        'choice-label': true,
+        'selected-choice': item.userResponse === option && !isQuizSubmitted,
+        'hovered-choice': !isQuizSubmitted,
+        'correct-answer': (item.userResponse && option === item.correctAnswer) && isQuizSubmitted,
+        'incorrect-answer': (item.userResponse === option && option !== item.correctAnswer) && isQuizSubmitted,
+        'unanswered': !item.userResponse && isQuizSubmitted
+      })
+
+      return(
+        <label key={`${questionIndex}-${optionIndex}`} className={styles}>
             <input 
                 type='radio'
                 name={questionIndex}
@@ -81,7 +93,8 @@ export default function Quiz(props) {
               />
             {option}
           </label>
-    ))
+      )
+  })  // End of displayOptions map
 
     return (
       <Fragment  key={questionIndex}>
@@ -98,30 +111,13 @@ export default function Quiz(props) {
         <hr />
       </Fragment >
     )
-
-  })
+  })  //  End of displayItems map
 
 //  HANDLE RESPONSE CHANGE
 
-/*
-
-NOTES
-********************************************************************************
-  - instead of handleResponseChange -> handleCheckAnswers
-
-    - handleResponseChange adds userResponse to processedQuizData ->
-      handleCheckAnswer compares userResponse to correctAnswer
-
-********************************************************************************
-
-*/
-
   function handleResponseChange(e){
-    
-    console.log(e.target)
 
     setProcessedQuizData(prevData => {
-       //  e.target.name == processedQiuzData index 
       const updatedData = prevData.map((item, index) => {
         
         if(index === Number(e.target.name)){
@@ -142,10 +138,9 @@ NOTES
   function handleCheckAnswers(event){
 
     event.preventDefault()
-
-    console.log('processedQuizData: ', processedQuizData)
-
+    setIsQuizSubmitted(true)
     const checkedResponses = processedQuizData.map(item => {
+
       if(item.userResponse === item.correctAnswer){
         console.log(`Number ${processedQuizData.indexOf(item) + 1} is correct!`)
         //  background of selected checkbox turns green
