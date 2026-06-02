@@ -8,7 +8,11 @@ export default function Quiz(props) {
 //  STATE
 
   const [processedQuizData, setProcessedQuizData] = useState([])
-  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false)
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState({complete: false, attempted: false})
+
+//  DERIVED STATE
+
+  const allQuestionsAnswered = processedQuizData.every(item => item.userResponse !== null)
 
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
@@ -75,11 +79,11 @@ export default function Quiz(props) {
 
       const styles = clsx({
         'choice-label': true,
-        'selected-choice': item.userResponse === option && !isQuizSubmitted,
-        'hovered-choice': !isQuizSubmitted,
-        'correct-answer': (item.userResponse && option === item.correctAnswer) && isQuizSubmitted,
-        'incorrect-answer': (item.userResponse === option && option !== item.correctAnswer) && isQuizSubmitted,
-        'unanswered': !item.userResponse && isQuizSubmitted
+        'selected-choice': item.userResponse === option && !isQuizSubmitted.complete,
+        'hovered-choice': !isQuizSubmitted.complete,
+        'correct-answer': (item.userResponse && option === item.correctAnswer) && isQuizSubmitted.complete,
+        'incorrect-answer': (item.userResponse === option && option !== item.correctAnswer) && isQuizSubmitted.complete,
+        'unanswered': !item.userResponse && isQuizSubmitted.attempted && !allQuestionsAnswered
       })
 
       return(
@@ -136,21 +140,16 @@ export default function Quiz(props) {
 // HANDLING CHECK ANSWERS
 
   function handleCheckAnswers(event){
-
     event.preventDefault()
-    setIsQuizSubmitted(true)
-    const checkedResponses = processedQuizData.map(item => {
 
-      if(item.userResponse === item.correctAnswer){
-        console.log(`Number ${processedQuizData.indexOf(item) + 1} is correct!`)
-        //  background of selected checkbox turns green
-      } else {
-        console.log(`Number ${processedQuizData.indexOf(item) + 1} is incorrect.`)
-        //  background of selected checkbox turns red
-        //  background of correct answer turns green
-      }
-    })
-    return checkedResponses
+    if(!allQuestionsAnswered){
+      alert('Please answer all questions before checking your answers.')
+      setIsQuizSubmitted(prev => ({...prev, attempted: true}))
+      return
+    } else {
+      setIsQuizSubmitted(prev => ({...prev, complete: true}))
+    }
+
     // You scorced 3/5 correct answers
     // button turns to 'Play again'
       //  clicking 'Play again' resets the quiz and takes you back to the home page
