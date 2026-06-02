@@ -49,6 +49,15 @@ main {
   margin-top: 0.5rem;
 }
 
+.check-answers-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
 /* TAGS */
 
 .tag {

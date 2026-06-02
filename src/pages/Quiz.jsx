@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { clsx } from 'clsx'
+import { useNavigate } from "react-router-dom"
 
 export default function Quiz(props) {
 
@@ -13,6 +14,9 @@ export default function Quiz(props) {
 //  DERIVED STATE
 
   const allQuestionsAnswered = processedQuizData.every(item => item.userResponse !== null)
+
+//  NAVIGATE HOOK
+  const navigate = useNavigate()
 
 //  MAKE SURE WE HAVE THE DATA BEFORE WE TRY TO DO ANYTHING WITH IT
 
@@ -155,10 +159,34 @@ export default function Quiz(props) {
       //  clicking 'Play again' resets the quiz and takes you back to the home page
   }
 
+  
+
+  function handlePlayAgain(){
+    setProcessedQuizData([])
+    setIsQuizSubmitted({complete: false, attempted: false})
+    props.setApiData(null)
+    navigate("/")
+  }
+
   return(
     <form className='quiz-form' onSubmit={handleCheckAnswers}>
       {displayItems}
-      <button type="submit" className='start-btn'>Check Answers</button>
+      <div className='check-answers-container'>
+        {isQuizSubmitted.complete && 
+          <h3>
+            You scored {processedQuizData.filter(item => 
+              item.userResponse === item.correctAnswer)
+              .length}/{processedQuizData.length} correct answers
+          </h3>
+        }
+        <button 
+          type={isQuizSubmitted.complete ? "button" : "submit"}
+          onClick={isQuizSubmitted.complete ? () => handlePlayAgain() : null}
+          className='start-btn'
+        >
+            {isQuizSubmitted.complete ? "Play Again" : "Check Answers"}
+          </button>
+      </div>
     </form>
   ) 
 }

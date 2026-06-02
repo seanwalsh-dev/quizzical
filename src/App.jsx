@@ -61,6 +61,7 @@ function handleStartQuiz(){
       <Route path="/quiz" element=
         {<Quiz 
           apiData={apiData}
+          setApiData={setApiData}
         />} />
     </Routes>
   )
