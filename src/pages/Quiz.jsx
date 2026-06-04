@@ -143,9 +143,8 @@ export default function Quiz(props) {
     navigate("/")
   }
 
-
-  return(
-    <form className='quiz-form' onSubmit={handleCheckAnswers}>
+  return(      
+      <form className='quiz-form' onSubmit={handleCheckAnswers}>
       <Question 
         processedQuizData={processedQuizData}
         isQuizSubmitted={isQuizSubmitted}

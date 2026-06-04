@@ -1,6 +1,7 @@
 import Confetti from 'react-confetti'
 import { useWindowSize } from 'react-use'
 
+
 export default function QuizControls(props) {
 
   const numOfCorrectAnswers = props.processedQuizData.filter(item => item.userResponse === item.correctAnswer).length
@@ -14,15 +15,20 @@ export default function QuizControls(props) {
         {props.isQuizSubmitted.complete && 
           <>
             <h3>You answered {numOfCorrectAnswers}/{numOfQuestions} questions correctly: {percentageScore}% {emoji}</h3>
-            <Confetti
-              width={width}
-              height={height}
-              recycle={true}
-              numberOfPieces={200}
-            />
+            {percentageScore === 100 &&
+              <Confetti
+                width={width}
+                height={height}
+                recycle={true}
+                numberOfPieces={200}
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0
+                }}
+              />
+            }
           </>
-          
-
         }
         <button 
           type={props.isQuizSubmitted.complete ? "button" : "submit"}
