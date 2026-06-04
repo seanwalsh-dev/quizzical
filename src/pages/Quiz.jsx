@@ -7,8 +7,8 @@ TODO:
   - add error handling for API call
   - go to first question unanswered after submitting quiz without answering all questions
   + add a percentage score
-    - add confetti if you score 100%
-  - make it so that items can't be changed after test is submitted
+    + add confetti if you score 100%
+  + make it so that items can't be changed after test is submitted
 
 */
 
@@ -30,6 +30,8 @@ export default function Quiz(props) {
 
   const [processedQuizData, setProcessedQuizData] = useState([])
   const [isQuizSubmitted, setIsQuizSubmitted] = useState({complete: false, attempted: false})
+
+  console.log('processedQuizData: ', processedQuizData)
 
 //  DERIVED STATE
 
@@ -128,6 +130,7 @@ export default function Quiz(props) {
       return
     } else {
       setIsQuizSubmitted(prev => ({...prev, complete: true}))
+
     }
   }
 
@@ -150,13 +153,11 @@ export default function Quiz(props) {
         handleResponseChange={handleResponseChange}
       />
 
-{/* <Results /> ********************************************************************************************************************************************************************* */}
       <QuizControls
         isQuizSubmitted={isQuizSubmitted}
         processedQuizData={processedQuizData}
         handlePlayAgain={handlePlayAgain}
       />
-{/* End of <Results /> ********************************************************************************************************************************************************************* */}
     </form>
   ) 
 }
