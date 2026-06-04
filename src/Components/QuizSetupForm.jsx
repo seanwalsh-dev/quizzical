@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 
 export default function QuizSetupForm(props) {
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   return(
     <form 

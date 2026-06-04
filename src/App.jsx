@@ -27,7 +27,7 @@ import he from 'he' //  Importing the 'he' library to decode HTML entities in th
 
 
 
-function App() {
+export default function App() {
 
 //  STATE
 
@@ -58,6 +58,11 @@ TODO:
 async function handleStartQuiz(){
     try {
         const res = await fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`)
+        }
+        
         const data = await res.json()
 
         const decodedApiData = {
@@ -73,11 +78,11 @@ async function handleStartQuiz(){
         }
         setApiData(decodedApiData)
         navigate('/quiz')
+        
       } catch (error) {
         console.error('Error fetching quiz data: ', error)
       }
-  }
-
+    }
   return (
 
     <Routes>
@@ -96,5 +101,3 @@ async function handleStartQuiz(){
     </Routes>
   )
 }
-
-export default App
