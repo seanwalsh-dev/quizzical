@@ -41,10 +41,19 @@ console.log('API Data: ', apiData)
 
 //  USING FORMDATA STATE FOR THE API
 
-function handleStartQuiz(){
-    fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
-      .then(res => res.json())
-      .then(data =>{
+/*
+
+TODO:
+
+  - change to asyn await
+  - add error handling
+
+*/
+
+async function handleStartQuiz(){
+    try {
+        const res = await fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
+        const data = await res.json()
 
         const decodedApiData = {
           ...data,
@@ -59,7 +68,9 @@ function handleStartQuiz(){
         }
 
         setApiData(decodedApiData)
-      })
+      } catch (error) {
+        console.error('Error fetching quiz data: ', error)
+      }
   }
 
   return (

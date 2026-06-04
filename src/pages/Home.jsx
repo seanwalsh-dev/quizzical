@@ -20,15 +20,12 @@ function handleFormDataChange(event){
   return(
       <main className='flex'>
         <h1>Quizzical</h1>
-{/* <QuizSetupForm /> ********************************************************************************************************************************************************************* */}
         <QuizSetupForm 
           formData={props.formData}
           setFormData={props.setFormData}
           handleFormDataChange={handleFormDataChange}
           handleStartQuiz={props.handleStartQuiz}
-        />
-{/* End Quiz Setup Form ************************************************************************************************************************************ */}
-        
+        />        
       </main>
     )
 }
