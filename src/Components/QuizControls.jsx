@@ -1,12 +1,14 @@
 export default function QuizControls(props) {
+
+  const numOfCorrectAnswers = props.processedQuizData.filter(item => item.userResponse === item.correctAnswer).length
+  const numOfQuestions = props.processedQuizData.length
+  const percentageScore = Math.round((numOfCorrectAnswers / numOfQuestions) * 100)
+  const emoji = percentageScore === 100 ? '🎉' : percentageScore >= 80 ? '☺️' : percentageScore >= 60 ? '🤔' : '😭'
+
   return(
     <div className='check-answers-container'>
         {props.isQuizSubmitted.complete && 
-          <h3>
-            You scored {props.processedQuizData.filter(item => 
-              item.userResponse === item.correctAnswer)
-              .length}/{props.processedQuizData.length} correct answers
-          </h3>
+          <h3>You answered {numOfCorrectAnswers}/{numOfQuestions} questions correctly: {percentageScore}% {emoji}</h3>
         }
         <button 
           type={props.isQuizSubmitted.complete ? "button" : "submit"}

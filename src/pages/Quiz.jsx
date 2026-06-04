@@ -2,41 +2,11 @@
 
 TODO:
 
-  - put into separate components
   - clean up CSS and design
-
-App
-├── Home
-│   └── QuizSetupForm
-│
-└── Quiz ***
-    ├── Question
-    │   └── Choice
-    │
-    └── Results
-
-
-
-Quiz
-├── owns state
-├── owns handlers
-├── processes API data
-├── calculates score
-│
-├── Question
-│     ├── question text
-│     ├── category
-│     ├── difficulty
-│     └── maps choices
-│
-├── Choice
-│     ├── radio input
-│     ├── clsx styling
-│     └── click handling
-│
-└── Results
-      ├── score display
-      └── play again button
+  - add a better loading screen / state
+  - add error handling for API call
+  - go to first question unanswered after submitting quiz without answering all questions
+  - add a percentage score
 
 */
 

@@ -1,17 +1,3 @@
-/*
-
-App
-├── Home
-│   └── QuizSetupForm ***
-│
-└── Quiz
-    ├── Question
-    │   └── Choice
-    │
-    └── Results
-
-*/
-
 import QuizSetupForm from "../Components/QuizSetupForm"
 
 export default function Home(props){
