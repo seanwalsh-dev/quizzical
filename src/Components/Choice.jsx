@@ -20,6 +20,7 @@ export default function Choice(props) {
                 value={option}
                 className="choice-input"
                 onChange={(e) => props.handleResponseChange(e) }
+                disabled={props.isQuizSubmitted.complete}
               />
             {option}
           </label>
