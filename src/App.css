@@ -164,7 +164,13 @@ h2 {
   font-size: 1.25rem;
 }
 
-/* BUTTONS */
+/* BUTTONS 
+
+TODO: 
+
+  - add hover and active states
+
+*/
 
 .start-btn {
   width: 193px;
@@ -178,5 +184,13 @@ h2 {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1rem;
   color: white;
+}
+
+.start-btn:hover {
+  background-color: #3B4A8C;
+}
+
+.start-btn:active {
+  background-color: #2A3873;
 }
 

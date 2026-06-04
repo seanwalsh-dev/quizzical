@@ -14,8 +14,11 @@ App
 
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
+
 import './App.css'
 import './index.css'
+
 import Home from './pages/Home'
 import Quiz from './pages/Quiz'
 
@@ -38,6 +41,8 @@ function App() {
 const [apiData, setApiData] = useState(null)
 
 console.log('API Data: ', apiData)
+
+const navigate = useNavigate()
 
 //  USING FORMDATA STATE FOR THE API
 
@@ -66,8 +71,8 @@ async function handleStartQuiz(){
             type: item.type
           }))
         }
-
         setApiData(decodedApiData)
+        navigate('/quiz')
       } catch (error) {
         console.error('Error fetching quiz data: ', error)
       }

@@ -11,7 +11,7 @@ export default function QuizSetupForm(props) {
           onSubmit={(e) =>{
             e.preventDefault()
             props.handleStartQuiz()
-            navigate('/quiz')
+            // navigate('/quiz')
           }} 
         >
 
