@@ -46,16 +46,6 @@ const navigate = useNavigate()
 
 //  USING FORMDATA STATE FOR THE API
 
-/*
-
-TODO:
-
-  - change to asyn await
-  - add error handling
-  - disable button / form after submission
-
-*/
-
   async function handleStartQuiz(){
     try {
         const res = await fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)

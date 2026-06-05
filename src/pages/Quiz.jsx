@@ -3,12 +3,6 @@
 TODO:
 
   - clean up CSS and design
-  - add a better loading screen / state
-  - add error handling for API call
-  + go to first question unanswered after submitting quiz without answering all questions
-  + add a percentage score
-    + add confetti if you score 100%
-  + make it so that items can't be changed after test is submitted
 
 */
 

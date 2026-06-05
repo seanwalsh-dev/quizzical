@@ -90,10 +90,6 @@ export default function QuizSetupForm(props) {
         <button 
         className='start-btn' 
         type='submit'
-        // onClick={() =>{
-          
-        //   window.location.href='./quiz'
-        // }} 
         >{isSubmitting ? "Loading Quiz..." : "Start Quiz"}</button>
       </fieldset>
     </form>
