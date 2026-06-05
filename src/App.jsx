@@ -52,19 +52,25 @@ TODO:
 
   - change to asyn await
   - add error handling
+  - disable button / form after submission
 
 */
 
 async function handleStartQuiz(){
     try {
         const res = await fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
+        // const res = await fetch(`https://opentdb.com/api.ph`)
         
         if (!res.ok) {
+          alert(`HTTP error! status: ${res.status}`)
           throw new Error(`HTTP error! status: ${res.status}`)
         }
-        
+        console.log('response status 1: ', res.status)
         const data = await res.json()
-
+        
+        // throw new Error("I'm an error!")
+        console.log('response status 2: ', res.status)
+        
         const decodedApiData = {
           ...data,
           results: data.results.map(item => ({
@@ -81,6 +87,7 @@ async function handleStartQuiz(){
         
       } catch (error) {
         console.error('Error fetching quiz data: ', error)
+        alert('Sorry, there was an error generating your quiz. Please try again later.')
       }
     }
   return (
