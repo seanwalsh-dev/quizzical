@@ -11,6 +11,34 @@ page-level structure
 
 */
 
+/* ROOT */
+
+:root {
+  /* PRIMARY (brand) */
+  --primary-900: #2A3873;
+  --primary-800: #3B4A8C;
+  --primary-700: #4D5B9E;
+  --primary-200: #C9D2F3;
+  --primary-100: #E8EBF9;
+
+  /* BACKGROUND / NEUTRALS */
+  --bg: #F5F7FB;
+  --surface: #FFFFFF;
+  --border: #DBDEF0;
+  --text: #293264;
+  --muted: #6B7280;
+
+  /* SEMANTIC */
+  --success: #7BCF8A;
+  --success-soft: #DFF5E3;
+
+  --error: #E57373;
+  --error-soft: #F9D6D6;
+
+  --warning: #F4C27A;
+  --warning-soft: #FFF1DB;
+}
+
 /* SECTIONS */
 
 main {
@@ -75,13 +103,13 @@ fieldset {
 }
 
 .category-tag {
-  background-color: #E8EBF9;
-  color: #4D5B9E;
+  background-color: var(--primary-100);
+  color: var(--primary-700);
 }
 
 .difficulty-tag {
-  background-color: #F0F2F8;
-  color: #6B7280;
+  background-color: var(--border);
+  color: var(--muted);
 }
 
 /* LABELS */
@@ -101,7 +129,7 @@ label{
   font-weight: 500;
   font-size: 0.75rem;
 
-  border: 1px solid #4D5B9E;
+  border: 1px solid var(--primary-700);
   border-radius: 8px;
 
   display: flex;
@@ -110,17 +138,19 @@ label{
 
 
   padding: 0.5rem 1rem;
+
+  transition: all 0.15s ease;
   /* width: fit-content; */
 }
 
 .hovered-choice:hover {
-  background-color: #E8EBF9;
-  border-color: #C9D2F3;
+  background-color: var(--primary-100);
+  border-color: var(--primary-200);
 }
 
 .selected-choice {
-  background-color: #D6DBF5;
-  border-color: #C9D2F3;
+  background-color: var(--primary-200);
+  border-color: var(--primary-200);
 }
 
 .choice-input {
@@ -128,19 +158,21 @@ label{
 }
 
 .correct-answer {
-  background-color: #94D7A2;
-  border-color: #94D7A2;
-  color: white;
+  background-color: var(--success-soft);
+  border-color: var(--success);
+  color: var(--text);
 }
+
 .incorrect-answer {
-  background-color: #F9C8C8;
-  border-color: #F9C8C8;
-  color: white;
+  background-color: var(--error-soft);
+  border-color: var(--error);
+  color: var(--text);
 }
+
 .unanswered {
-  background-color: #F5F7FB;
-  border-color: #F9C8C8;
-  color: #293264;
+  background-color: var(--bg);
+  border-color: var(--border);
+  color: var(--text);
 }
 
 
@@ -176,7 +208,7 @@ h2 {
   width: 193px;
   height: 52px;
   border-radius: 15px;
-  background-color: #4D5B9E;
+  background-color: var(--primary-700);
   border: 0;
   margin: 1.5rem auto;
   display: block;
@@ -187,11 +219,11 @@ h2 {
 }
 
 .start-btn:hover {
-  background-color: #3B4A8C;
+  background-color: var(--primary-800);
 }
 
 .start-btn:active {
-  background-color: #2A3873;
+  background-color: var(--primary-900);
 }
 
 

@@ -12,6 +12,35 @@ default text styling
 
 */
 
+/* ROOT */
+
+:root {
+  /* PRIMARY (brand) */
+  --primary-900: #2A3873;
+  --primary-800: #3B4A8C;
+  --primary-700: #4D5B9E;
+  --primary-200: #C9D2F3;
+  --primary-100: #E8EBF9;
+
+  /* BACKGROUND / NEUTRALS */
+  --bg: #F5F7FB;
+  --surface: #FFFFFF;
+  --border: #DBDEF0;
+  --text: #293264;
+  --muted: #6B7280;
+
+  /* SEMANTIC */
+  --success: #7BCF8A;
+  --success-soft: #DFF5E3;
+
+  --error: #E57373;
+  --error-soft: #F9D6D6;
+
+  --warning: #F4C27A;
+  --warning-soft: #FFF1DB;
+}
+
+/* GLOBAL STYLES */
 
 * {
   box-sizing: border-box;
@@ -20,8 +49,8 @@ default text styling
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background-color: #F5F7FB;
-  color: #293264;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .flex{
