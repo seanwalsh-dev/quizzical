@@ -102,14 +102,141 @@ fieldset {
   margin-top: 1rem;
 }
 
-.category-tag {
-  background-color: var(--primary-100);
-  color: var(--primary-700);
+.diff-easy{
+  background: #DCFCE7;
+  border: 1px solid #22C55E;
+  color: #166534;
+}
+.diff-medium{
+  background: #FEF3C7;
+  border: 1px solid #F59E0B;
+  color: #92400E;
+}
+.diff-hard{
+  background: #FEE2E2;
+  border: 1px solid #EF4444;
+  color: #991B1B;
 }
 
-.difficulty-tag {
-  background-color: var(--border);
-  color: var(--muted);
+.cat-general {
+  background: #E2E8F0;
+  border: 1px solid #64748B;
+  color: #334155;
+}
+.cat-books{
+  background: #FEF3C7;
+  border: 1px solid #FBBF24;
+  color: #92400E;
+}
+.cat-film{
+  background: #FEE2E2;
+  border: 1px solid #F87171;
+  color: #B91C1C;
+}
+.cat-music{
+  background: #FCE7F3;
+  border: 1px solid #F472B6;
+  color: #BE185D;
+}
+.cat-musicals{
+  background: #FFF7ED;
+  border: 1px solid #FB923C;
+  color: #C2410C;
+}
+.cat-tv{
+  background: #DBEAFE;
+  border: 1px solid #60A5FA;
+  color: #1D4ED8;
+}
+.cat-video-games{
+  background: #E0E7FF;
+  border: 1px solid #818CF8;
+  color: #4338CA;
+}
+.cat-board-games {
+  background: #E0E7FF;
+  border: 1px solid #6366F1;
+  color: #3730A3;
+}
+.cat-nature{
+  background: #ECFCCB;
+  border: 1px solid #84CC16;
+  color: #365314;
+}
+.cat-comp{
+  background: #CFFAFE;
+  border: 1px solid #22D3EE;
+  color: #0E7490;
+}
+.cat-math {
+  background: #CCFBF1;
+  border: 1px solid #2DD4BF;
+  color: #0F766E;
+}
+.cat-mythology {
+  background: #EDE9FE;
+  border: 1px solid #7C3AED;
+  color: #5B21B6;
+}
+.cat-sports{
+  background: #DCFCE7;
+  border: 1px solid #16A34A;
+  color: #14532D;
+}
+.cat-geography{
+  background: #E0F2FE;
+  border: 1px solid #38BDF8;
+  color: #0369A1;
+}
+.cat-history{
+  background: #FAE8D4;
+  border: 1px solid #C2410C;
+  color: #7C2D12;
+}
+.cat-politics{
+  background: #FEE2E2;
+  border: 1px solid #DC2626;
+  color: #991B1B;
+}
+.cat-art {
+  background: #FDF2F8;
+  border: 1px solid #F9A8D4;
+  color: #BE185D;
+}
+.cat-celebrities{
+  background: #F3F4F6;
+  border: 1px solid #9CA3AF;
+  color: #4B5563;
+}
+.cat-animals {
+  background: #F7FEE7;
+  border: 1px solid #65A30D;
+  color: #365314;
+}
+.cat-vehicles{
+  background: #E2E8F0;
+  border: 1px solid #64748B;
+  color: #334155;
+}
+.cat-comics {
+  background: #FFEDD5;
+  border: 1px solid #F97316;
+  color: #9A3412;
+}
+.cat-gadgets{
+  background: #ECFEFF;
+  border: 1px solid #06B6D4;
+  color: #155E75;
+}
+.cat-anime {
+  background: #F3E8FF;
+  border: 1px solid #A855F7;
+  color: #7E22CE;
+}
+.cat-animations {
+  background: #FCE7F3;
+  border: 1px solid #EC4899;
+  color: #9D174D;
 }
 
 /* LABELS */
