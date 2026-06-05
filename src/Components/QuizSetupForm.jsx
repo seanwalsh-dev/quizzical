@@ -94,7 +94,7 @@ export default function QuizSetupForm(props) {
           
         //   window.location.href='./quiz'
         // }} 
-        >Start Quiz</button>
+        >{isSubmitting ? "Loading Quiz..." : "Start Quiz"}</button>
       </fieldset>
     </form>
   )
