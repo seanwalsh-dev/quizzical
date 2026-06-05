@@ -56,21 +56,18 @@ TODO:
 
 */
 
-async function handleStartQuiz(){
+  async function handleStartQuiz(){
     try {
         const res = await fetch(`https://opentdb.com/api.php?amount=${formData.number}&category=${formData.category}&difficulty=${formData.difficulty}&type=${formData.type}`)
-        // const res = await fetch(`https://opentdb.com/api.ph`)
-        
+
         if (!res.ok) {
-          alert(`HTTP error! status: ${res.status}`)
-          throw new Error(`HTTP error! status: ${res.status}`)
+          const httpError = new Error(`HTTP error! status: ${res.status}`)
+          httpError.type = 'HTTP error'
+          throw httpError
         }
-        console.log('response status 1: ', res.status)
+
         const data = await res.json()
-        
-        // throw new Error("I'm an error!")
-        console.log('response status 2: ', res.status)
-        
+
         const decodedApiData = {
           ...data,
           results: data.results.map(item => ({
@@ -82,14 +79,21 @@ async function handleStartQuiz(){
             type: item.type
           }))
         }
+
         setApiData(decodedApiData)
         navigate('/quiz')
         
       } catch (error) {
         console.error('Error fetching quiz data: ', error)
+
+        if (error.type === 'HTTP error') {
+          alert(`${error.message}. Please try again later.`)
+        } else {
         alert('Sorry, there was an error generating your quiz. Please try again later.')
+        }
       }
-    }
+  }
+
   return (
 
     <Routes>
