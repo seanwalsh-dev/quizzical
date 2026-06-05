@@ -40,6 +40,12 @@ main {
   margin: 0;
 }
 
+fieldset {
+  border: none;
+  padding: 0 2rem;
+  width: 100%;
+}
+
 /* CONTAINERS */
 
 .choices-container, .tag-container {
