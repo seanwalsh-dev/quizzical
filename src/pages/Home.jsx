@@ -25,6 +25,8 @@ function handleFormDataChange(event){
           setFormData={props.setFormData}
           handleFormDataChange={handleFormDataChange}
           handleStartQuiz={props.handleStartQuiz}
+          isSubmitting={props.isSubmitting}
+          setIsSubmitting={props.setIsSubmitting}
         />        
       </main>
     )

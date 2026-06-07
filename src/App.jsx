@@ -10,6 +10,10 @@ App
     │
     └── Results
 
+TODO:
+
+- catch error when there is no data
+
 */
 
 import { useState } from 'react'
@@ -38,6 +42,8 @@ export default function App() {
     type: ''
 })
 
+const [isSubmitting, setIsSubmitting] = useState(false)
+
 const [apiData, setApiData] = useState(null)
 
 console.log('API Data: ', apiData)
@@ -58,20 +64,29 @@ const navigate = useNavigate()
 
         const data = await res.json()
 
-        const decodedApiData = {
-          ...data,
-          results: data.results.map(item => ({
-            category: he.decode(item.category),
-            correctAnswer: he.decode(item.correct_answer),
-            difficulty: item.difficulty,
-            incorrectAnswers: item.incorrect_answers.map(answer => he.decode(answer)),
-            question: he.decode(item.question),
-            type: item.type
-          }))
+        console.log('data', data)
+
+        if(data.results.length === 0){
+          alert('We could not make a quiz that match that criteria.  Please change the criteria and try again')
+          setIsSubmitting(false)
+        } else {
+          const decodedApiData = {
+            ...data,
+            results: data.results.map(item => ({
+              category: he.decode(item.category),
+              correctAnswer: he.decode(item.correct_answer),
+              difficulty: item.difficulty,
+              incorrectAnswers: item.incorrect_answers.map(answer => he.decode(answer)),
+              question: he.decode(item.question),
+              type: item.type
+            }))
+          }
+
+          setApiData(decodedApiData)
+          navigate('/quiz')
         }
 
-        setApiData(decodedApiData)
-        navigate('/quiz')
+        
         
       } catch (error) {
         console.error('Error fetching quiz data: ', error)
@@ -92,6 +107,8 @@ const navigate = useNavigate()
           formData={formData}
           setFormData={setFormData}
           handleStartQuiz={handleStartQuiz}
+          isSubmitting={isSubmitting}
+          setIsSubmitting={setIsSubmitting}
         />} 
       />
       <Route path="/quiz" element=

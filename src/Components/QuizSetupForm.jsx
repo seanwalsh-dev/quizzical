@@ -1,8 +1,8 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 
 export default function QuizSetupForm(props) {
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [isSubmitting, setIsSubmitting] = useState(false)
 
   return(
     <form 
@@ -10,11 +10,11 @@ export default function QuizSetupForm(props) {
       className='flex' 
       onSubmit={(e) =>{
         e.preventDefault()
-        setIsSubmitting(true)
+        props.setIsSubmitting(true)
         props.handleStartQuiz()
       }} 
     >
-      <fieldset disabled={isSubmitting}>
+      <fieldset disabled={props.isSubmitting}>
 
         <label htmlFor='num-of-questions'>Number of Questions: 
           <input 
@@ -90,7 +90,7 @@ export default function QuizSetupForm(props) {
         <button 
         className='start-btn' 
         type='submit'
-        >{isSubmitting ? "Loading Quiz..." : "Start Quiz"}</button>
+        >{props.isSubmitting ? "Loading Quiz..." : "Start Quiz"}</button>
       </fieldset>
     </form>
   )
