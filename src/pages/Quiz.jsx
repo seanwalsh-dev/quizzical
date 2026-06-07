@@ -136,19 +136,22 @@ export default function Quiz(props) {
   }
 
   return(      
+    <main className='flex'>
       <form className='quiz-form' onSubmit={handleCheckAnswers}>
-      <Question 
-        processedQuizData={processedQuizData}
-        isQuizSubmitted={isQuizSubmitted}
-        allQuestionsAnswered={allQuestionsAnswered}
-        handleResponseChange={handleResponseChange}
-      />
+        <Question 
+          processedQuizData={processedQuizData}
+          isQuizSubmitted={isQuizSubmitted}
+          allQuestionsAnswered={allQuestionsAnswered}
+          handleResponseChange={handleResponseChange}
+        />
 
-      <QuizControls
-        isQuizSubmitted={isQuizSubmitted}
-        processedQuizData={processedQuizData}
-        handlePlayAgain={handlePlayAgain}
-      />
-    </form>
+        <QuizControls
+          isQuizSubmitted={isQuizSubmitted}
+          processedQuizData={processedQuizData}
+          handlePlayAgain={handlePlayAgain}
+        />
+      </form>
+    </main>
+      
   ) 
 }

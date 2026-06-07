@@ -20,18 +20,19 @@ export default function QuizSetupForm(props) {
           <input 
             type='number' 
             id='num-of-questions' 
+            className="form-input"
             name='number' 
             min='1' 
             max='50' 
             value={props.formData.number}
             onChange={props.handleFormDataChange}
           />
-
         </label>
         <label htmlFor='category'>Select a Category: 
           <select 
             name='category' 
-            id='category' 
+            id='category'
+            className="form-input"
             onChange={props.handleFormDataChange}
           >
             <option value="">Any Category</option>
@@ -65,6 +66,7 @@ export default function QuizSetupForm(props) {
         <label htmlFor="difficulty">Select Difficulty: 
           <select 
             id="difficulty" 
+            className="form-input"
             name="difficulty"
             onChange={props.handleFormDataChange}
           >
@@ -78,6 +80,7 @@ export default function QuizSetupForm(props) {
         <label htmlFor="type">Select Type:
           <select 
             id="type" 
+            className="form-input"
             name="type"
             onChange={props.handleFormDataChange}
           >
