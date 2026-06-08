@@ -13,7 +13,6 @@ export default function Question(props) {
       if(!props.isQuizSubmitted.attempted) return
 
         const indexToScroll = props.processedQuizData.findIndex(item => item.userResponse === null)
-        console.log('indexToScroll: ', indexToScroll)
 
         if(indexToScroll !== -1){
           itemRefs.current[indexToScroll]?.scrollIntoView({

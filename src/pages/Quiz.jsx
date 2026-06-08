@@ -25,7 +25,6 @@ export default function Quiz(props) {
   const [processedQuizData, setProcessedQuizData] = useState([])
   const [isQuizSubmitted, setIsQuizSubmitted] = useState({complete: false, attempted: false})
 
-  console.log('processedQuizData: ', processedQuizData)
 
 //  DERIVED STATE
 

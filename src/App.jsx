@@ -46,8 +46,6 @@ const [isSubmitting, setIsSubmitting] = useState(false)
 
 const [apiData, setApiData] = useState(null)
 
-console.log('API Data: ', apiData)
-
 const navigate = useNavigate()
 
 //  USING FORMDATA STATE FOR THE API
@@ -63,8 +61,6 @@ const navigate = useNavigate()
         }
 
         const data = await res.json()
-
-        console.log('data', data)
 
         if(data.results.length === 0){
           alert('We could not make a quiz that match that criteria.  Please change the criteria and try again')
