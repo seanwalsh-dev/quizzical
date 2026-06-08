@@ -115,6 +115,8 @@ const navigate = useNavigate()
         {<Quiz 
           apiData={apiData}
           setApiData={setApiData}
+          isSubmitting={isSubmitting}
+          setIsSubmitting={setIsSubmitting}
         />} />
     </Routes>
   )

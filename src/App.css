@@ -164,7 +164,9 @@ label{
   border-color: var(--primary-200);
 }
 
-.selected-choice {
+.selected-choice,
+.choice-label:active,
+.choice-label:has(input:checked) {
   background-color: var(--primary-200);
   border-color: var(--primary-200);
 }

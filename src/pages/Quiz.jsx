@@ -130,7 +130,8 @@ export default function Quiz(props) {
   
   function handlePlayAgain(){
     setProcessedQuizData([])
-    setIsQuizSubmitted({complete: false, attempted: false})
+    setIsQuizSubmitted({complete: false, attempted: false}) //  check answers submit
+    props.setIsSubmitting(false) // home quiz making submit
     props.setApiData(null)
     navigate("/")
   }
@@ -149,6 +150,7 @@ export default function Quiz(props) {
           isQuizSubmitted={isQuizSubmitted}
           processedQuizData={processedQuizData}
           handlePlayAgain={handlePlayAgain}
+          setIsSubmitting={props.setIsSubmitting}
         />
       </form>
     </main>
